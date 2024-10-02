@@ -3,6 +3,7 @@ import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
 
+import config from 'configs/app';
 import getCurrencyValue from 'lib/getCurrencyValue';
 import TokenEntity from 'ui/shared/entities/token/TokenEntity';
 
@@ -19,12 +20,21 @@ const FtTokenTransferSnippet = ({ token, value, decimals }: Props) => {
     decimals: decimals,
   });
 
+  let symbol = token.symbol;
+  let tokenName = token.name;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && token.address.toLowerCase().includes(updatedAddress)) {
+    tokenName = config.verse.tokens.updatedName;
+    symbol = config.verse.tokens.updatedSymbol;
+  }
+
   return (
     <>
       <chakra.span color="text_secondary">for</chakra.span>
       <span>{ valueStr }</span>
       <TokenEntity
-        token={{ ...token, name: token.symbol || token.name }}
+        token={{ ...token, name: symbol || tokenName }}
         noCopy
         noSymbol
         w="auto"

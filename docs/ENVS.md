@@ -125,6 +125,15 @@ Please be aware that all environment variables prefixed with `NEXT_PUBLIC_` will
 
 &nbsp;
 
+### Verse token configuration
+| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS | `string` | Set the address if the token has changed | - | `` | `0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000` | v6.7.x+ |
+| NEXT_PUBLIC_TOKENS_UPDATED_NAME | `string` | Set the token name if the token has changed | - | `Oasys` | `` | v6.7.x+ |
+| NEXT_PUBLIC_TOKENS_UPDATED_SYMBOL | `string` | Set the token symbol if the token has changed | - | `OAS` | `` | v6.7.x+ |
+
+&nbsp;
+
 ### Navigation
 
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |

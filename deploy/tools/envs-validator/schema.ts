@@ -543,6 +543,11 @@ const schema = yup
     NEXT_PUBLIC_HOMEPAGE_SHOW_AVG_BLOCK_TIME: yup.boolean(),
     NEXT_PUBLIC_HOMEPAGE_HIDDEN_OP_NODE_TXS: yup.boolean(),
 
+    // Custom tokens
+    NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS: yup.string(),
+    NEXT_PUBLIC_TOKENS_UPDATED_NAME: yup.string(),
+    NEXT_PUBLIC_TOKENS_UPDATED_SYMBOL: yup.string(),
+
     //     b. sidebar
     NEXT_PUBLIC_FEATURED_NETWORKS: yup
       .array()

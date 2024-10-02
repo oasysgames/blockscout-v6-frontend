@@ -3,6 +3,7 @@ import React from 'react';
 
 import type { SearchResultToken } from 'types/api/search';
 
+import config from 'configs/app';
 import highlightText from 'lib/highlightText';
 import * as TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
@@ -17,6 +18,15 @@ interface Props {
 const SearchBarSuggestToken = ({ data, isMobile, searchTerm }: Props) => {
   const icon = <TokenEntity.Icon token={{ ...data, type: data.token_type }}/>;
   const verifiedIcon = <IconSvg name="certified" boxSize={ 4 } color="green.500" ml={ 1 }/>;
+  let symbol = data.symbol;
+  let tokenName = data.name;
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && data.address.toLowerCase().includes(updatedAddress)) {
+    tokenName = config.verse.tokens.updatedName;
+    symbol = config.verse.tokens.updatedSymbol;
+  }
+
   const name = (
     <Text
       fontWeight={ 700 }
@@ -24,7 +34,7 @@ const SearchBarSuggestToken = ({ data, isMobile, searchTerm }: Props) => {
       whiteSpace="nowrap"
       textOverflow="ellipsis"
     >
-      <span dangerouslySetInnerHTML={{ __html: highlightText(data.name + (data.symbol ? ` (${ data.symbol })` : ''), searchTerm) }}/>
+      <span dangerouslySetInnerHTML={{ __html: highlightText(tokenName + (symbol ? ` (${ symbol })` : ''), searchTerm) }}/>
     </Text>
   );
 

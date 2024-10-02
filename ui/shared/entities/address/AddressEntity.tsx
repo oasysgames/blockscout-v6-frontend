@@ -7,6 +7,7 @@ import type { AddressParam } from 'types/api/addressParams';
 
 import { route } from 'nextjs-routes';
 
+import config from 'configs/app';
 import { useAddressHighlightContext } from 'lib/contexts/addressHighlight';
 import * as EntityBase from 'ui/shared/entities/base/components';
 
@@ -91,7 +92,13 @@ export type ContentProps = Omit<EntityBase.ContentBaseProps, 'text'> & Pick<Enti
 
 const Content = chakra((props: ContentProps) => {
   const nameTag = props.address.metadata?.tags.find(tag => tag.tagType === 'name')?.name;
-  const nameText = nameTag || props.address.ens_domain_name || props.address.name;
+  let nameText = nameTag || props.address.ens_domain_name || props.address.name;
+
+  // in case tokens is updated name
+  const updatedAddress = config.verse.tokens.updatedAddress.toLowerCase();
+  if (updatedAddress.length > 0 && props.address.hash.toLowerCase().includes(updatedAddress)) {
+    nameText = config.verse.tokens.updatedName;
+  }
 
   const isProxy = props.address.implementations && props.address.implementations.length > 0;
 
