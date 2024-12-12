@@ -19,6 +19,7 @@ import getNetworkValidationActionText from 'lib/networks/getNetworkValidationAct
 import getNetworkValidatorTitle from 'lib/networks/getNetworkValidatorTitle';
 import getQueryParamString from 'lib/router/getQueryParamString';
 import { currencyUnits } from 'lib/units';
+import OptimisticL2TxnBatchDA from 'ui/shared/batch/OptimisticL2TxnBatchDA';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
 import CopyToClipboard from 'ui/shared/CopyToClipboard';
 import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
@@ -38,6 +39,7 @@ import Utilization from 'ui/shared/Utilization/Utilization';
 import VerificationSteps from 'ui/shared/verificationSteps/VerificationSteps';
 import ZkSyncL2TxnBatchHashesInfo from 'ui/txnBatches/zkSyncL2/ZkSyncL2TxnBatchHashesInfo';
 
+import BlockDetailsBaseFeeCelo from './details/BlockDetailsBaseFeeCelo';
 import BlockDetailsBlobInfo from './details/BlockDetailsBlobInfo';
 import type { BlockQuery } from './useBlockQuery';
 
@@ -120,7 +122,7 @@ const BlockDetails = ({ query }: Props) => {
   const txsNum = (() => {
     const blockTxsNum = (
       <LinkInternal href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: heightOrHash, tab: 'txs' } }) }>
-        { data.tx_count } txn{ data.tx_count === 1 ? '' : 's' }
+        { data.transaction_count } txn{ data.transaction_count === 1 ? '' : 's' }
       </LinkInternal>
     );
 
@@ -201,12 +203,34 @@ const BlockDetails = ({ query }: Props) => {
             hint="Batch number"
             isLoading={ isPlaceholderData }
           >
-          Batch
+            Batch
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             { data.arbitrum.batch_number ?
               <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.arbitrum.batch_number }/> :
               <Skeleton isLoaded={ !isPlaceholderData }>Pending</Skeleton> }
+          </DetailsInfoItem.Value>
+        </>
+      ) }
+
+      { rollupFeature.isEnabled && rollupFeature.type === 'optimistic' && data.optimism && !config.UI.views.block.hiddenFields?.batch && (
+        <>
+          <DetailsInfoItem.Label
+            hint="Batch number"
+            isLoading={ isPlaceholderData }
+          >
+            Batch
+          </DetailsInfoItem.Label>
+          <DetailsInfoItem.Value columnGap={ 3 }>
+            { data.optimism.internal_id ?
+              <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.optimism.internal_id }/> :
+              <Skeleton isLoaded={ !isPlaceholderData }>Pending</Skeleton> }
+            { data.optimism.batch_data_container && (
+              <OptimisticL2TxnBatchDA
+                container={ data.optimism.batch_data_container }
+                isLoading={ isPlaceholderData }
+              />
+            ) }
           </DetailsInfoItem.Value>
         </>
       ) }
@@ -365,7 +389,7 @@ const BlockDetails = ({ query }: Props) => {
             }
             isLoading={ isPlaceholderData }
           >
-          Block reward
+            Block reward
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value columnGap={ 1 }>
             <Skeleton isLoaded={ !isPlaceholderData }>
@@ -393,6 +417,8 @@ const BlockDetails = ({ query }: Props) => {
       }
 
       <DetailsInfoItemDivider/>
+
+      { data.celo?.base_fee && <BlockDetailsBaseFeeCelo data={ data.celo.base_fee }/> }
 
       <DetailsInfoItem.Label
         hint="The total gas amount used in the block and its percentage of gas filled in the block"
@@ -431,7 +457,7 @@ const BlockDetails = ({ query }: Props) => {
             hint="The minimum gas price a transaction should have in order to be included in this block"
             isLoading={ isPlaceholderData }
           >
-        Minimum gas price
+            Minimum gas price
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <Skeleton isLoaded={ !isPlaceholderData }>

@@ -282,11 +282,11 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         Block
       </DetailsInfoItem.Label>
       <DetailsInfoItem.Value>
-        { data.block === null ?
+        { data.block_number === null ?
           <Text>Pending</Text> : (
             <BlockEntity
               isLoading={ isLoading }
-              number={ data.block }
+              number={ data.block_number }
               noIcon
             />
           ) }
@@ -306,7 +306,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint="Batch index for this transaction"
             isLoading={ isLoading }
           >
-            Tx batch
+            Txn batch
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             <BatchEntityL2
@@ -342,7 +342,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             hint="Index of the batch containing this transaction"
             isLoading={ isLoading }
           >
-          Batch
+            Batch
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value>
             { data.arbitrum.batch_number ?
@@ -526,7 +526,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
           <DetailsInfoItem.Label
             isLoading={ isLoading }
           >
-        Verify tx hash
+            Verify tx hash
           </DetailsInfoItem.Label>
           <DetailsInfoItem.Value flexWrap="nowrap">
             <Skeleton isLoaded={ !isLoading } overflow="hidden">
@@ -666,7 +666,6 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
             (data.base_fee_per_gas || data.max_fee_per_gas || data.max_priority_fee_per_gas) && (
         <>
           <DetailsInfoItem.Label
-            // eslint-disable-next-line max-len
             hint={ `
             Base Fee refers to the network Base Fee at the time of the block, 
             while Max Fee & Max Priority Fee refer to the max amount a user is willing to pay 
@@ -790,7 +789,7 @@ const TxInfo = ({ data, isLoading, socketStatus }: Props) => {
         <>
           <GridItem colSpan={{ base: undefined, lg: 2 }} mt={{ base: 1, lg: 4 }}/>
 
-          { data.arbitrum?.message_related_info && (
+          { data.arbitrum?.contains_message && data.arbitrum?.message_related_info && (
             <>
               <DetailsInfoItem.Label
                 hint={ data.arbitrum.contains_message === 'incoming' ?

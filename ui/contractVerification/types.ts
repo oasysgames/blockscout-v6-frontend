@@ -1,6 +1,6 @@
 import type { SmartContractLicenseType } from 'types/api/contract';
 import type { SmartContractVerificationMethod } from 'types/client/contract';
-import type { Option } from 'ui/shared/FancySelect/types';
+import type { Option } from 'ui/shared/forms/inputs/select/types';
 
 export interface ContractLibrary {
   name: string;
@@ -54,8 +54,6 @@ export interface FormFieldsStandardInputZk {
   autodetect_constructor_args: boolean;
   constructor_args: string;
   license_type: LicenseOption | null;
-  is_optimization_enabled: boolean;
-  optimization_mode: string | undefined;
 }
 
 export interface FormFieldsSourcify {

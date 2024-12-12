@@ -6,6 +6,7 @@ import config from 'configs/app';
 import { apps as appsMock } from 'mocks/apps/apps';
 import { ratings as ratingsMock } from 'mocks/apps/ratings';
 import { securityReports as securityReportsMock } from 'mocks/apps/securityReports';
+import type { TestFnArgs } from 'playwright/lib';
 import { test, expect, devices } from 'playwright/lib';
 
 import MarketplaceApp from './MarketplaceApp';
@@ -17,10 +18,10 @@ const hooksConfig = {
   },
 };
 
-const MARKETPLACE_CONFIG_URL = 'https://marketplace-config.json';
-const MARKETPLACE_SECURITY_REPORTS_URL = 'https://marketplace-security-reports.json';
+const MARKETPLACE_CONFIG_URL = 'http://localhost:4000/marketplace-config.json';
+const MARKETPLACE_SECURITY_REPORTS_URL = 'http://localhost:4000/marketplace-security-reports.json';
 
-const testFn: Parameters<typeof test>[1] = async({ render, mockConfigResponse, mockAssetResponse, mockEnvs, mockRpcResponse, page }) => {
+const testFn = async({ render, mockConfigResponse, mockAssetResponse, mockEnvs, mockRpcResponse, page }: TestFnArgs) => {
   await mockEnvs([
     [ 'NEXT_PUBLIC_MARKETPLACE_ENABLED', 'true' ],
     [ 'NEXT_PUBLIC_MARKETPLACE_CONFIG_URL', MARKETPLACE_CONFIG_URL ],
@@ -35,7 +36,7 @@ const testFn: Parameters<typeof test>[1] = async({ render, mockConfigResponse, m
     Method: 'eth_chainId',
     ReturnType: numberToHex(Number(config.chain.id)),
   });
-  await page.route('https://api.airtable.com/v0/test/apps_ratings?fields%5B%5D=appId&fields%5B%5D=rating', (route) => route.fulfill({
+  await page.route('https://api.airtable.com/v0/test/apps_ratings?fields%5B%5D=appId&fields%5B%5D=rating&fields%5B%5D=count', (route) => route.fulfill({
     status: 200,
     body: JSON.stringify(ratingsMock),
   }));

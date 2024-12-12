@@ -8,8 +8,8 @@ import { test, expect, devices } from 'playwright/lib';
 
 import Marketplace from './Marketplace';
 
-const MARKETPLACE_CONFIG_URL = 'http://localhost/marketplace-config.json';
-const MARKETPLACE_SECURITY_REPORTS_URL = 'https://marketplace-security-reports.json';
+const MARKETPLACE_CONFIG_URL = 'http://localhost:4000/marketplace-config.json';
+const MARKETPLACE_SECURITY_REPORTS_URL = 'https://localhost:4000/marketplace-security-reports.json';
 
 test.beforeEach(async({ mockConfigResponse, mockEnvs, mockAssetResponse, page }) => {
   await mockEnvs([
@@ -22,7 +22,7 @@ test.beforeEach(async({ mockConfigResponse, mockEnvs, mockAssetResponse, page })
   await mockConfigResponse('NEXT_PUBLIC_MARKETPLACE_CONFIG_URL', MARKETPLACE_CONFIG_URL, JSON.stringify(appsMock));
   await mockConfigResponse('NEXT_PUBLIC_MARKETPLACE_SECURITY_REPORTS_URL', MARKETPLACE_SECURITY_REPORTS_URL, JSON.stringify(securityReportsMock));
   await Promise.all(appsMock.map(app => mockAssetResponse(app.logo, './playwright/mocks/image_s.jpg')));
-  await page.route('https://api.airtable.com/v0/test/apps_ratings?fields%5B%5D=appId&fields%5B%5D=rating', (route) => route.fulfill({
+  await page.route('https://api.airtable.com/v0/test/apps_ratings?fields%5B%5D=appId&fields%5B%5D=rating&fields%5B%5D=count', (route) => route.fulfill({
     status: 200,
     body: JSON.stringify(ratingsMock),
   }));

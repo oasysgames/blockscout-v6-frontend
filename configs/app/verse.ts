@@ -13,4 +13,7 @@ export default Object.freeze({
     isVisible: getEnvValue('NEXT_PUBLIC_MENU_BRIDGE_VISIBLE') === 'true',
     url: getEnvValue('NEXT_PUBLIC_MENU_BRIDGE_URL') || '/bridge',
   },
+  coinPrice: {
+    isEnabled: getEnvValue('NEXT_PUBLIC_PRICE_TRACKER_ENABLED') === 'true',
+  },
 });
