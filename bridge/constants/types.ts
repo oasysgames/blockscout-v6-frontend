@@ -9,7 +9,6 @@ export enum ChainId {
   YOOLDO = 50006,
   GEEK = 75512,
   CHAIN = 5555,
-  DM2 = 68770,
   GESO = 428,
 
   OASYS_TESTNET = 9372,

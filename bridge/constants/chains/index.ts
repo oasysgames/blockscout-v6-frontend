@@ -5,7 +5,6 @@ import { ChainId, TokenIndex } from '../types';
 
 import { ChainVerse } from './chain';
 import { DefiVerse } from './defi';
-import { Dm2Verse } from './dm2';
 import { GeekVerse } from './geek';
 import { GesoVerse } from './geso';
 import { HOMEVerse } from './home';
@@ -30,7 +29,6 @@ export const CHAINS: { [k in ChainId]: Chain } = {
   [ChainId.YOOLDO]: YooldoVerse,
   [ChainId.GEEK]: GeekVerse,
   [ChainId.CHAIN]: ChainVerse,
-  [ChainId.DM2]: Dm2Verse,
   [ChainId.GESO]: GesoVerse,
 };
 
@@ -44,7 +42,6 @@ export const L2MainnetChainIds = [
   ChainId.YOOLDO,
   ChainId.GEEK,
   ChainId.CHAIN,
-  ChainId.DM2,
   ChainId.GESO,
 ];
 
@@ -67,7 +64,6 @@ export {
   YooldoVerse,
   GeekVerse,
   ChainVerse,
-  Dm2Verse,
   GesoVerse,
 };
 
