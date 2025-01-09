@@ -1,4 +1,4 @@
-import { Box, Heading, Flex, Text, VStack, Skeleton } from '@chakra-ui/react';
+import { chakra, Box, Heading, Flex, Text, VStack, Skeleton } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
 import React from 'react';
@@ -52,11 +52,6 @@ const LatestBlocks = () => {
         return newData;
       }
 
-      // In case there is 1 tx of op-node, it will not appear
-      if (config.verse.opNode.isHiddenTxs && payload.block.tx_count <= 1) {
-        return newData;
-      }
-
       return [ payload.block, ...newData ].sort((b1, b2) => b2.height - b1.height).slice(0, blocksMaxCount);
     });
   }, [ queryClient, blocksMaxCount ]);
@@ -106,12 +101,18 @@ const LatestBlocks = () => {
       { statsQueryResult.data?.network_utilization_percentage !== undefined && (
         <Skeleton isLoaded={ !statsQueryResult.isPlaceholderData } mt={ 1 } display="inline-block">
           <Text as="span" fontSize="sm">
-              Network utilization:{ nbsp }
+            Network utilization:{ nbsp }
           </Text>
           <Text as="span" fontSize="sm" color="blue.400" fontWeight={ 700 }>
             { statsQueryResult.data?.network_utilization_percentage.toFixed(2) }%
           </Text>
         </Skeleton>
+      ) }
+      { statsQueryResult.data?.celo && (
+        <Box whiteSpace="pre-wrap" fontSize="sm">
+          <span>Current epoch: </span>
+          <chakra.span fontWeight={ 700 }>#{ statsQueryResult.data.celo.epoch_number }</chakra.span>
+        </Box>
       ) }
       <Box mt={ 3 }>
         { content }

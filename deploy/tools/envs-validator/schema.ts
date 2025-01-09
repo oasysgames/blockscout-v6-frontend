@@ -10,6 +10,7 @@ declare module 'yup' {
 import * as yup from 'yup';
 
 import type { AdButlerConfig } from '../../../types/client/adButlerConfig';
+import type { AddressProfileAPIConfig } from '../../../types/client/addressProfileAPIConfig';
 import { SUPPORTED_AD_TEXT_PROVIDERS, SUPPORTED_AD_BANNER_PROVIDERS, SUPPORTED_AD_BANNER_ADDITIONAL_PROVIDERS } from '../../../types/client/adProviders';
 import type { AdTextProviders, AdBannerProviders, AdBannerAdditionalProviders } from '../../../types/client/adProviders';
 import { SMART_CONTRACT_EXTRA_VERIFICATION_METHODS, type ContractCodeIde, type SmartContractVerificationMethodExtra } from '../../../types/client/contract';
@@ -29,12 +30,13 @@ import type { ValidatorsChainType } from '../../../types/client/validators';
 import type { WalletType } from '../../../types/client/wallets';
 import { SUPPORTED_WALLETS } from '../../../types/client/wallets';
 import type { CustomLink, CustomLinksGroup } from '../../../types/footerLinks';
-import { CHAIN_INDICATOR_IDS } from '../../../types/homepage';
-import type { ChainIndicatorId } from '../../../types/homepage';
+import { CHAIN_INDICATOR_IDS, HOME_STATS_WIDGET_IDS } from '../../../types/homepage';
+import type { ChainIndicatorId, HeroBannerButtonState, HeroBannerConfig, HomeStatsWidgetId } from '../../../types/homepage';
 import { type NetworkVerificationTypeEnvs, type NetworkExplorer, type FeaturedNetwork, NETWORK_GROUPS } from '../../../types/networks';
 import { COLOR_THEME_IDS } from '../../../types/settings';
-import type { AddressViewId } from '../../../types/views/address';
-import { ADDRESS_VIEWS_IDS, IDENTICON_TYPES } from '../../../types/views/address';
+import type { FontFamily } from '../../../types/ui';
+import type { AddressFormat, AddressViewId } from '../../../types/views/address';
+import { ADDRESS_FORMATS, ADDRESS_VIEWS_IDS, IDENTICON_TYPES } from '../../../types/views/address';
 import { BLOCK_FIELDS_IDS } from '../../../types/views/block';
 import type { BlockFieldId } from '../../../types/views/block';
 import type { NftMarketplaceItem } from '../../../types/views/nft';
@@ -241,6 +243,14 @@ const marketplaceSchema = yup
         // eslint-disable-next-line max-len
         otherwise: (schema) => schema.max(-1, 'NEXT_PUBLIC_MARKETPLACE_RATING_AIRTABLE_BASE_ID cannot not be used without NEXT_PUBLIC_MARKETPLACE_ENABLED'),
       }),
+    NEXT_PUBLIC_MARKETPLACE_GRAPH_LINKS_URL: yup
+      .string()
+      .when('NEXT_PUBLIC_MARKETPLACE_ENABLED', {
+        is: true,
+        then: (schema) => schema,
+        // eslint-disable-next-line max-len
+        otherwise: (schema) => schema.max(-1, 'NEXT_PUBLIC_MARKETPLACE_GRAPH_LINKS_URL cannot not be used without NEXT_PUBLIC_MARKETPLACE_ENABLED'),
+      }),
   });
 
 const beaconChainSchema = yup
@@ -276,6 +286,33 @@ const rollupSchema = yup
         is: (value: string) => value === 'optimistic',
         then: (schema) => schema.test(urlTest).required(),
         otherwise: (schema) => schema.max(-1, 'NEXT_PUBLIC_ROLLUP_L2_WITHDRAWAL_URL can be used only if NEXT_PUBLIC_ROLLUP_TYPE is set to \'optimistic\' '),
+      }),
+    NEXT_PUBLIC_ROLLUP_HOMEPAGE_SHOW_LATEST_BLOCKS: yup
+      .boolean()
+      .when('NEXT_PUBLIC_ROLLUP_TYPE', {
+        is: (value: string) => value,
+        then: (schema) => schema,
+        otherwise: (schema) => schema.test(
+          'not-exist',
+          'NEXT_PUBLIC_ROLLUP_HOMEPAGE_SHOW_LATEST_BLOCKS cannot not be used if NEXT_PUBLIC_ROLLUP_TYPE is not defined',
+          value => value === undefined,
+        ),
+      }),
+  });
+
+const celoSchema = yup
+  .object()
+  .shape({
+    NEXT_PUBLIC_CELO_ENABLED: yup.boolean(),
+    NEXT_PUBLIC_CELO_L2_UPGRADE_BLOCK: yup
+      .string()
+      .when('NEXT_PUBLIC_CELO_ENABLED', {
+        is: (value: boolean) => value,
+        then: (schema) => schema.min(0).optional(),
+        otherwise: (schema) => schema.max(
+          -1,
+          'NEXT_PUBLIC_CELO_L2_UPGRADE_BLOCK cannot not be used if NEXT_PUBLIC_CELO_ENABLED is not set to "true"',
+        ),
       }),
   });
 
@@ -354,7 +391,7 @@ const accountSchema = yup
       .string()
       .when('NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED', {
         is: (value: boolean) => value,
-        then: (schema) => schema.required(),
+        then: (schema) => schema,
         otherwise: (schema) => schema.max(-1, 'NEXT_PUBLIC_AUTH0_CLIENT_ID cannot not be used if NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED is not set to "true"'),
       }),
     NEXT_PUBLIC_AUTH_URL: yup
@@ -368,7 +405,7 @@ const accountSchema = yup
       .string()
       .when('NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED', {
         is: (value: boolean) => value,
-        then: (schema) => schema.test(urlTest).required(),
+        then: (schema) => schema.test(urlTest),
         otherwise: (schema) => schema.max(-1, 'NEXT_PUBLIC_LOGOUT_URL cannot not be used if NEXT_PUBLIC_IS_ACCOUNT_SUPPORTED is not set to "true"'),
       }),
   });
@@ -388,6 +425,34 @@ const navItemExternalSchema: yup.ObjectSchema<NavItemExternal> = yup
   .object({
     text: yup.string().required(),
     url: yup.string().test(urlTest).required(),
+  });
+
+const fontFamilySchema: yup.ObjectSchema<FontFamily> = yup
+  .object()
+  .transform(replaceQuotes)
+  .json()
+  .shape({
+    name: yup.string().required(),
+    url: yup.string().test(urlTest).required(),
+  });
+
+const heroBannerButtonStateSchema: yup.ObjectSchema<HeroBannerButtonState> = yup.object({
+  background: yup.array().max(2).of(yup.string()),
+  text_color: yup.array().max(2).of(yup.string()),
+});
+
+const heroBannerSchema: yup.ObjectSchema<HeroBannerConfig> = yup.object()
+  .transform(replaceQuotes)
+  .json()
+  .shape({
+    background: yup.array().max(2).of(yup.string()),
+    text_color: yup.array().max(2).of(yup.string()),
+    border: yup.array().max(2).of(yup.string()),
+    button: yup.object({
+      _default: heroBannerButtonStateSchema,
+      _hover: heroBannerButtonStateSchema,
+      _selected: heroBannerButtonStateSchema,
+    }),
   });
 
 const footerLinkSchema: yup.ObjectSchema<CustomLink> = yup
@@ -481,6 +546,13 @@ const deFiDropdownItemSchema: yup.ObjectSchema<DeFiDropdownItem> = yup
     return Boolean(value.dappId) || Boolean(value.url);
   }) as yup.ObjectSchema<DeFiDropdownItem>;
 
+const multichainProviderConfigSchema: yup.ObjectSchema<MultichainProviderConfig> = yup.object({
+  name: yup.string().required(),
+  url_template: yup.string().required(),
+  logo: yup.string().required(),
+  dapp_id: yup.string(),
+});
+
 const schema = yup
   .object()
   .noUnknown(true, (params) => {
@@ -538,15 +610,36 @@ const schema = yup
       .transform(replaceQuotes)
       .json()
       .of(yup.string<ChainIndicatorId>().oneOf(CHAIN_INDICATOR_IDS)),
+    NEXT_PUBLIC_HOMEPAGE_STATS: yup
+      .array()
+      .transform(replaceQuotes)
+      .json()
+      .of(yup.string<HomeStatsWidgetId>().oneOf(HOME_STATS_WIDGET_IDS)),
     NEXT_PUBLIC_HOMEPAGE_PLATE_TEXT_COLOR: yup.string(),
     NEXT_PUBLIC_HOMEPAGE_PLATE_BACKGROUND: yup.string(),
-    NEXT_PUBLIC_HOMEPAGE_SHOW_AVG_BLOCK_TIME: yup.boolean(),
     NEXT_PUBLIC_HOMEPAGE_HIDDEN_OP_NODE_TXS: yup.boolean(),
-
     // Custom tokens
     NEXT_PUBLIC_TOKENS_UPDATED_ADDRESS: yup.string(),
     NEXT_PUBLIC_TOKENS_UPDATED_NAME: yup.string(),
     NEXT_PUBLIC_TOKENS_UPDATED_SYMBOL: yup.string(),
+    
+    NEXT_PUBLIC_HOMEPAGE_HERO_BANNER_CONFIG: yup
+      .mixed()
+      .test(
+        'shape',
+        (ctx) => {
+          try {
+            heroBannerSchema.validateSync(ctx.originalValue);
+            throw new Error('Unknown validation error');
+          } catch (error: unknown) {
+            const message = typeof error === 'object' && error !== null && 'errors' in error && Array.isArray(error.errors) ? error.errors.join(', ') : '';
+            return 'Invalid schema were provided for NEXT_PUBLIC_HOMEPAGE_HERO_BANNER_CONFIG' + (message ? `: ${ message }` : '');
+          }
+        },
+        (data) => {
+          const isUndefined = data === undefined;
+          return isUndefined || heroBannerSchema.isValidSync(data);
+        }),
 
     //     b. sidebar
     NEXT_PUBLIC_FEATURED_NETWORKS: yup
@@ -591,6 +684,19 @@ const schema = yup
       .json()
       .of(yup.string<BlockFieldId>().oneOf(BLOCK_FIELDS_IDS)),
     NEXT_PUBLIC_VIEWS_ADDRESS_IDENTICON_TYPE: yup.string().oneOf(IDENTICON_TYPES),
+    NEXT_PUBLIC_VIEWS_ADDRESS_FORMAT: yup
+      .array()
+      .transform(replaceQuotes)
+      .json()
+      .of(yup.string<AddressFormat>().oneOf(ADDRESS_FORMATS)),
+    NEXT_PUBLIC_VIEWS_ADDRESS_BECH_32_PREFIX: yup
+      .string()
+      .when('NEXT_PUBLIC_VIEWS_ADDRESS_FORMAT', {
+        is: (value: Array<AddressFormat> | undefined) => value && value.includes('bech32'),
+        then: (schema) => schema.required().min(1).max(83),
+        otherwise: (schema) => schema.max(-1, 'NEXT_PUBLIC_VIEWS_ADDRESS_BECH_32_PREFIX is required if NEXT_PUBLIC_VIEWS_ADDRESS_FORMAT contains "bech32"'),
+      }),
+
     NEXT_PUBLIC_VIEWS_ADDRESS_HIDDEN_VIEWS: yup
       .array()
       .transform(replaceQuotes)
@@ -644,6 +750,19 @@ const schema = yup
     NEXT_PUBLIC_HIDE_INDEXING_ALERT_INT_TXS: yup.boolean(),
     NEXT_PUBLIC_MAINTENANCE_ALERT_MESSAGE: yup.string(),
     NEXT_PUBLIC_COLOR_THEME_DEFAULT: yup.string().oneOf(COLOR_THEME_IDS),
+    NEXT_PUBLIC_FONT_FAMILY_HEADING: yup
+      .mixed()
+      .test('shape', 'Invalid schema were provided for NEXT_PUBLIC_FONT_FAMILY_HEADING', (data) => {
+        const isUndefined = data === undefined;
+        return isUndefined || fontFamilySchema.isValidSync(data);
+      }),
+    NEXT_PUBLIC_FONT_FAMILY_BODY: yup
+      .mixed()
+      .test('shape', 'Invalid schema were provided for NEXT_PUBLIC_FONT_FAMILY_BODY', (data) => {
+        const isUndefined = data === undefined;
+        return isUndefined || fontFamilySchema.isValidSync(data);
+      }),
+    NEXT_PUBLIC_MAX_CONTENT_WIDTH_ENABLED: yup.boolean(),
 
     // 5. Features configuration
     NEXT_PUBLIC_API_SPEC_URL: yup
@@ -695,18 +814,10 @@ const schema = yup
     NEXT_PUBLIC_HAS_USER_OPS: yup.boolean(),
     NEXT_PUBLIC_METASUITES_ENABLED: yup.boolean(),
     NEXT_PUBLIC_MULTICHAIN_BALANCE_PROVIDER_CONFIG: yup
-      .mixed()
-      .test('shape', 'Invalid schema were provided for NEXT_PUBLIC_MULTICHAIN_BALANCE_PROVIDER_CONFIG, it should have name and url template', (data) => {
-        const isUndefined = data === undefined;
-        const valueSchema = yup.object<MultichainProviderConfig>().transform(replaceQuotes).json().shape({
-          name: yup.string().required(),
-          url_template: yup.string().required(),
-          logo: yup.string(),
-          dapp_id: yup.string(),
-        });
-
-        return isUndefined || valueSchema.isValidSync(data);
-      }),
+      .array()
+      .transform(replaceQuotes)
+      .json()
+      .of(multichainProviderConfigSchema),
     NEXT_PUBLIC_GAS_REFUEL_PROVIDER_CONFIG: yup
       .mixed()
       .test('shape', 'Invalid schema were provided for NEXT_PUBLIC_GAS_REFUEL_PROVIDER_CONFIG, it should have name and url template', (data) => {
@@ -722,6 +833,7 @@ const schema = yup
       }),
     NEXT_PUBLIC_VALIDATORS_CHAIN_TYPE: yup.string<ValidatorsChainType>().oneOf(VALIDATORS_CHAIN_TYPE),
     NEXT_PUBLIC_GAS_TRACKER_ENABLED: yup.boolean(),
+    NEXT_PUBLIC_PRICE_TRACKER_DISABLE: yup.boolean(),
     NEXT_PUBLIC_GAS_TRACKER_UNITS: yup.array().transform(replaceQuotes).json().of(yup.string<GasUnit>().oneOf(GAS_UNITS)),
     NEXT_PUBLIC_DATA_AVAILABILITY_ENABLED: yup.boolean(),
     NEXT_PUBLIC_DEFI_DROPDOWN_ITEMS: yup
@@ -749,10 +861,28 @@ const schema = yup
           value => value === undefined,
         ),
       }),
+    NEXT_PUBLIC_SAVE_ON_GAS_ENABLED: yup.boolean(),
+    NEXT_PUBLIC_ADDRESS_USERNAME_TAG: yup
+      .mixed()
+      .test('shape', 'Invalid schema were provided for NEXT_PUBLIC_ADDRESS_USERNAME_TAG, it should have api_url_template', (data) => {
+        const isUndefined = data === undefined;
+        const valueSchema = yup.object<AddressProfileAPIConfig>().transform(replaceQuotes).json().shape({
+          api_url_template: yup.string().required(),
+          tag_link_template: yup.string(),
+          tag_icon: yup.string(),
+          tag_bg_color: yup.string(),
+          tag_text_color: yup.string(),
+        });
+
+        return isUndefined || valueSchema.isValidSync(data);
+      }),
+    NEXT_PUBLIC_REWARDS_SERVICE_API_HOST: yup.string().test(urlTest),
+    NEXT_PUBLIC_XSTAR_SCORE_URL: yup.string().test(urlTest),
 
     // 6. External services envs
     NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: yup.string(),
-    NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY: yup.string(),
+    NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY: yup.string(), // DEPRECATED
+    NEXT_PUBLIC_RE_CAPTCHA_V3_APP_SITE_KEY: yup.string(),
     NEXT_PUBLIC_GOOGLE_ANALYTICS_PROPERTY_ID: yup.string(),
     NEXT_PUBLIC_MIXPANEL_PROJECT_TOKEN: yup.string(),
     NEXT_PUBLIC_GROWTH_BOOK_CLIENT_KEY: yup.string(),
@@ -764,6 +894,7 @@ const schema = yup
   .concat(adsBannerSchema)
   .concat(marketplaceSchema)
   .concat(rollupSchema)
+  .concat(celoSchema)
   .concat(beaconChainSchema)
   .concat(bridgedTokensSchema)
   .concat(sentrySchema);

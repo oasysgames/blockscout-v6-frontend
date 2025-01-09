@@ -19,6 +19,20 @@ export type SmartContractLicenseType =
 'gnu_agpl_v3' |
 'bsl_1_1';
 
+export type SmartContractProxyType =
+  | 'eip1167'
+  | 'eip1967'
+  | 'eip1822'
+  | 'eip930'
+  | 'eip2535'
+  | 'master_copy'
+  | 'basic_implementation'
+  | 'basic_get_implementation'
+  | 'comptroller'
+  | 'clone_with_immutable_arguments'
+  | 'unknown'
+  | null;
+
 export interface SmartContract {
   deployed_bytecode: string | null;
   creation_bytecode: string | null;
@@ -53,7 +67,8 @@ export interface SmartContract {
     remappings?: Array<string>;
   };
   verified_twin_address_hash: string | null;
-  minimal_proxy_address_hash: string | null;
+  verified_twin_filecoin_robust_address?: string | null;
+  proxy_type: SmartContractProxyType | null;
   language: string | null;
   license_type: SmartContractLicenseType | null;
   certified?: boolean;
@@ -66,8 +81,8 @@ export type SmartContractDecodedConstructorArg = [
     internalType: SmartContractMethodArgType;
     name: string;
     type: SmartContractMethodArgType;
-  }
-]
+  },
+];
 
 export interface SmartContractExternalLibrary {
   address_hash: string;
@@ -96,7 +111,7 @@ export type SmartContractVerificationResponse = {
   errors: SmartContractVerificationError;
 } | {
   status: 'success';
-}
+};
 
 export interface SmartContractVerificationError {
   contract_source_code?: Array<string>;
@@ -111,21 +126,37 @@ type SmartContractSecurityAudit = {
   audit_company_name: string;
   audit_publish_date: string;
   audit_report_url: string;
-}
+};
 
 export type SmartContractSecurityAudits = {
   items: Array<SmartContractSecurityAudit>;
-}
+};
 
 export type SmartContractSecurityAuditSubmission = {
-  'address_hash': string;
-  'submitter_name': string;
-  'submitter_email': string;
-  'is_project_owner': boolean;
-  'project_name': string;
-  'project_url': string;
-  'audit_company_name': string;
-  'audit_report_url': string;
-  'audit_publish_date': string;
-  'comment'?: string;
+  address_hash: string;
+  submitter_name: string;
+  submitter_email: string;
+  is_project_owner: boolean;
+  project_name: string;
+  project_url: string;
+  audit_company_name: string;
+  audit_report_url: string;
+  audit_publish_date: string;
+  comment?: string;
+};
+
+// MUD SYSTEM
+
+export interface SmartContractMudSystemsResponse {
+  items: Array<SmartContractMudSystemItem>;
+}
+
+export interface SmartContractMudSystemItem {
+  address: string;
+  name: string;
+}
+
+export interface SmartContractMudSystemInfo {
+  name: string;
+  abi: Abi;
 }

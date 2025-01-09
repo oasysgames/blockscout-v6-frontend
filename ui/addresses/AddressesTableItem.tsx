@@ -14,7 +14,7 @@ type Props = {
   totalSupply: BigNumber;
   hasPercentage: boolean;
   isLoading?: boolean;
-}
+};
 
 const AddressesTableItem = ({
   item,
@@ -24,7 +24,7 @@ const AddressesTableItem = ({
   isLoading,
 }: Props) => {
 
-  const addressBalance = BigNumber(item.coin_balance).div(BigNumber(10 ** config.chain.currency.decimals));
+  const addressBalance = BigNumber(item.coin_balance || 0).div(BigNumber(10 ** config.chain.currency.decimals));
   const addressBalanceChunks = addressBalance.dp(8).toFormat().split('.');
 
   return (
@@ -60,7 +60,7 @@ const AddressesTableItem = ({
       ) }
       <Td isNumeric>
         <Skeleton isLoaded={ !isLoading } display="inline-block" lineHeight="24px">
-          { Number(item.tx_count).toLocaleString() }
+          { Number(item.transaction_count).toLocaleString() }
         </Skeleton>
       </Td>
     </Tr>

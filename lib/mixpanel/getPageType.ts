@@ -10,6 +10,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/block/countdown': 'Block countdown search',
   '/block/countdown/[height]': 'Block countdown',
   '/accounts': 'Top accounts',
+  '/accounts/label/[slug]': 'Addresses search by label',
   '/address/[hash]': 'Address details',
   '/verified-contracts': 'Verified contracts',
   '/contract-verification': 'Contract verification',
@@ -20,11 +21,13 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/apps': 'DApps',
   '/apps/[id]': 'DApp',
   '/stats': 'Stats',
+  '/stats/[id]': 'Stats chart',
   '/bridge': 'Explore Bridge',
   '/api-docs': 'REST API',
   '/graphiql': 'GraphQL',
   '/search-results': 'Search results',
   '/auth/profile': 'Profile',
+  '/account/rewards': 'Merits',
   '/account/watchlist': 'Watchlist',
   '/account/api-key': 'API keys',
   '/account/custom-abi': 'Custom ABI',
@@ -37,8 +40,8 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/deposits': 'Deposits (L1 > L2)',
   '/output-roots': 'Output roots',
   '/dispute-games': 'Dispute games',
-  '/batches': 'Tx batches (L2 blocks)',
-  '/batches/[number]': 'L2 tx batch details',
+  '/batches': 'Txn batches',
+  '/batches/[number]': 'L2 txn batch details',
   '/blobs/[hash]': 'Blob details',
   '/ops': 'User operations',
   '/op/[hash]': 'User operation details',
@@ -48,6 +51,7 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/validators': 'Validators list',
   '/gas-tracker': 'Gas tracker',
   '/mud-worlds': 'MUD worlds',
+  '/token-transfers': 'Token transfers',
 
   // service routes, added only to make typescript happy
   '/login': 'Login',
@@ -61,8 +65,6 @@ export const PAGE_TYPE_DICT: Record<Route['pathname'], string> = {
   '/api/healthz': 'Node API: Health check',
   '/api/config': 'Node API: App config',
   '/api/sprite': 'Node API: SVG sprite content',
-  '/auth/auth0': 'Auth',
-  '/auth/unverified-email': 'Unverified email',
 };
 
 export default function getPageType(pathname: Route['pathname']) {

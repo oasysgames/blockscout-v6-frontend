@@ -5,10 +5,13 @@ import React, { useCallback } from 'react';
 import type { MarketplaceAppWithSecurityReport, ContractListTypes, AppRating } from 'types/client/marketplace';
 
 import useIsMobile from 'lib/hooks/useIsMobile';
+import isBrowser from 'lib/isBrowser';
+import CopyToClipboard from 'ui/shared/CopyToClipboard';
 
 import AppSecurityReport from './AppSecurityReport';
 import FavoriteIcon from './FavoriteIcon';
 import MarketplaceAppCardLink from './MarketplaceAppCardLink';
+import MarketplaceAppGraphLinks from './MarketplaceAppGraphLinks';
 import MarketplaceAppIntegrationIcon from './MarketplaceAppIntegrationIcon';
 import Rating from './Rating/Rating';
 import type { RateFunction } from './Rating/useRatings';
@@ -26,6 +29,7 @@ interface Props extends MarketplaceAppWithSecurityReport {
   isRatingSending: boolean;
   isRatingLoading: boolean;
   canRate: boolean | undefined;
+  graphLinks: Array<{ text: string; url: string }>;
 }
 
 const MarketplaceAppCard = ({
@@ -52,6 +56,7 @@ const MarketplaceAppCard = ({
   isRatingSending,
   isRatingLoading,
   canRate,
+  graphLinks,
 }: Props) => {
   const isMobile = useIsMobile();
   const categoriesLabel = categories.join(', ');
@@ -116,11 +121,7 @@ const MarketplaceAppCard = ({
           >
             <Skeleton
               isLoaded={ !isLoading }
-              fontSize={{ base: 'sm', md: 'lg' }}
-              lineHeight={{ base: '20px', md: '28px' }}
               paddingRight={{ base: '40px', md: 0 }}
-              fontWeight="semibold"
-              fontFamily="heading"
               display="inline-block"
             >
               <MarketplaceAppCardLink
@@ -129,8 +130,18 @@ const MarketplaceAppCard = ({
                 external={ external }
                 title={ title }
                 onClick={ onAppClick }
+                fontWeight="semibold"
+                fontFamily="heading"
+                fontSize={{ base: 'sm', md: 'lg' }}
+                lineHeight={{ base: '20px', md: '28px' }}
               />
               <MarketplaceAppIntegrationIcon external={ external } internalWallet={ internalWallet }/>
+              <MarketplaceAppGraphLinks
+                links={ graphLinks }
+                ml={ 2 }
+                verticalAlign="middle"
+                mb={{ base: 0, md: 1 }}
+              />
             </Skeleton>
 
             <Skeleton
@@ -168,7 +179,7 @@ const MarketplaceAppCard = ({
             >
               More info
             </Link>
-            <Flex alignItems="center" gap={ 3 }>
+            <Flex alignItems="center">
               <Rating
                 appId={ id }
                 rating={ rating }
@@ -188,6 +199,21 @@ const MarketplaceAppCard = ({
                 h={{ base: 6, md: '30px' }}
                 onClick={ handleFavoriteClick }
                 icon={ <FavoriteIcon isFavorite={ isFavorite }/> }
+                ml={ 2 }
+              />
+              <CopyToClipboard
+                text={ isBrowser() ? window.location.origin + `/apps/${ id }` : '' }
+                icon="share"
+                size={ 4 }
+                variant="ghost"
+                colorScheme="gray"
+                w={{ base: 6, md: '30px' }}
+                h={{ base: 6, md: '30px' }}
+                color="gray.400"
+                _hover={{ color: 'gray.400' }}
+                ml={{ base: 1, md: 0 }}
+                display="inline-flex"
+                borderRadius="base"
               />
             </Flex>
           </Flex>

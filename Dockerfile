@@ -1,7 +1,7 @@
 # *****************************
 # *** STAGE 1: Dependencies ***
 # *****************************
-FROM node:20.11.0-alpine AS deps
+FROM node:20.17.0-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat python3 make g++
 RUN ln -sf /usr/bin/python3 /usr/bin/python
@@ -27,11 +27,17 @@ WORKDIR /envs-validator
 COPY ./deploy/tools/envs-validator/package.json ./deploy/tools/envs-validator/yarn.lock ./
 RUN yarn --frozen-lockfile
 
+### FAVICON GENERATOR
+# Install dependencies
+WORKDIR /favicon-generator
+COPY ./deploy/tools/favicon-generator/package.json ./deploy/tools/favicon-generator/yarn.lock ./
+RUN yarn --frozen-lockfile
+
 
 # *****************************
 # ****** STAGE 2: Build *******
 # *****************************
-FROM node:20.11.0-alpine AS builder
+FROM node:20.17.0-alpine AS builder
 RUN apk add --no-cache --upgrade libc6-compat bash
 
 # pass build args to env variables
@@ -77,11 +83,15 @@ COPY --from=deps /envs-validator/node_modules ./deploy/tools/envs-validator/node
 RUN cd ./deploy/tools/envs-validator && yarn build
 
 
+### FAVICON GENERATOR
+# Copy dependencies and source code
+COPY --from=deps /favicon-generator/node_modules ./deploy/tools/favicon-generator/node_modules
+
 # *****************************
 # ******* STAGE 3: Run ********
 # *****************************
 # Production image, copy all the files and run next
-FROM node:20.11.0-alpine AS runner
+FROM node:20.17.0-alpine AS runner
 RUN apk add --no-cache --upgrade bash curl jq unzip
 
 ### APP
@@ -113,7 +123,7 @@ COPY --chmod=755 ./deploy/scripts/make_envs_script.sh .
 COPY --chmod=755 ./deploy/scripts/download_assets.sh .
 ## Favicon generator
 COPY --chmod=755 ./deploy/scripts/favicon_generator.sh .
-COPY ./deploy/tools/favicon-generator ./deploy/tools/favicon-generator
+COPY --from=builder /app/deploy/tools/favicon-generator ./deploy/tools/favicon-generator
 RUN ["chmod", "-R", "777", "./deploy/tools/favicon-generator"]
 RUN ["chmod", "-R", "777", "./public"]
 
