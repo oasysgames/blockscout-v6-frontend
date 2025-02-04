@@ -1073,7 +1073,7 @@ export const RESOURCES = {
     path: '/api/v1/celo-election-rewards-csv',
   },
   graphql: {
-    path: '/api/v1/graphql',
+    path: '/experiment/api/experiment-graphql',
   },
   block_countdown: {
     path: '/api',

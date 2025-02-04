@@ -1,8 +1,20 @@
 async function headers() {
+  const cspDirectives = [
+    'default-src \'self\'',
+    'connect-src \'self\'',
+    'connect-src https://bridge.explorer-v6-oasys.net',
+    'connect-src ws://localhost:3000/_next/webpack-hmr',
+    'script-src \'self\' \'unsafe-eval\' \'unsafe-inline\'',
+  ].join('; ') + ';';
+
   return [
     {
       source: '/:path*',
       headers: [
+        {
+          key: 'Content-Security-Policy',
+          value: cspDirectives,
+        },
         // security headers from here - https://nextjs.org/docs/advanced-features/security-headers
         {
           key: 'X-Frame-Options',

@@ -9,7 +9,7 @@ export const TCGVerse = /*#__PURE__*/ defineChain({
   nativeCurrency: { name: 'Oasys', symbol: 'OAS', decimals: 18 },
   rpcUrls: {
     'default': {
-      http: [ 'https://rpc.tcgverse.xyz' ],
+      http: [ 'https://rep-rpc.tcgverse.xyz' ],
     },
   },
   blockExplorers: {
