@@ -51,6 +51,9 @@ const moduleExports = {
       'static': 180,
     },
   },
+  images: {
+    domains: ['oasys-blockscout.s3.ap-northeast-1.amazonaws.com'],
+  },
 };
 
 module.exports = withBundleAnalyzer(withRoutes(moduleExports));
