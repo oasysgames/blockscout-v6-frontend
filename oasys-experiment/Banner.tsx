@@ -2,35 +2,43 @@ import Image from 'next/image';
 import React from 'react';
 
 import { getEnvValue } from 'configs/app/utils';
+import { useAppContext } from 'lib/contexts/app';
+import * as cookies from 'lib/cookies';
 
 const Banner: React.FC = () => {
-  const bannerImageUrl = getEnvValue('NEXT_PUBLIC_BANNER_IMAGE_URL');
+  const appProps = useAppContext();
+  const cookiesString = appProps.cookies;
+  const isNavBarCollapsedCookie = cookies.get(cookies.NAMES.NAV_BAR_COLLAPSED, cookiesString);
+  const isNavBarCollapsed = isNavBarCollapsedCookie === 'true';
+  const bannerImageUrl = getEnvValue('NEXT_PUBLIC_BANNER_IMAGE_URL') ?? null;
+  const bannerLinkUrl = getEnvValue('NEXT_PUBLIC_BANNER_LINK_URL') ?? '#';
 
-  if (!bannerImageUrl) return null;
+  if (isNavBarCollapsed || !bannerImageUrl) return null;
 
   return (
     <div style={{
-      position: 'fixed',
-      bottom: '20px',
-      left: '20px',
-      zIndex: 9999,
-      pointerEvents: 'none',
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      padding: '10px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      width: '100%',
+      padding: '8px',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: 'transparent',
     }}>
-      <Image
-        src={ bannerImageUrl }
-        alt="Banner"
-        width={ 200 }
-        height={ 100 }
-        style={{
-          maxWidth: '200px',
-          maxHeight: '100px',
-          display: 'block',
-        }}
-      />
+      <a href={ bannerLinkUrl } target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
+        <Image
+          src={ bannerImageUrl }
+          alt="Banner"
+          width={ 160 }
+          height={ 80 }
+          priority
+          unoptimized
+          style={{
+            maxWidth: '160px',
+            maxHeight: '80px',
+            display: 'block',
+          }}
+        />
+      </a>
     </div>
   );
 };

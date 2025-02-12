@@ -409,6 +409,7 @@ This feature is **enabled by default** with the `slise` ads provider. To switch 
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_BANNER_IMAGE_URL | `string` | URL for custom banner image displayed in the bottom left corner | Optional | - | `https://example.com/banner.png` | v1.0.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL | `string` | URL that the banner will redirect to when clicked | Optional | - | `https://example.com` | v1.0.x+ |
 | NEXT_PUBLIC_AD_BANNER_PROVIDER | `slise` \| `adbutler` \| `coinzilla` \|  `hype` \| `getit` \| `none` | Ads provider  | - | `slise` | `coinzilla` | v1.0.x+ |
 | NEXT_PUBLIC_AD_BANNER_ADDITIONAL_PROVIDER | `adbutler` | Additional ads provider to mix with the main one | - | - | `adbutler` | v1.28.0+ |
 | NEXT_PUBLIC_AD_ADBUTLER_CONFIG_DESKTOP | `{ id: string; width: string; height: string }` | Placement config for desktop Adbutler banner | - | - | `{'id':'123456','width':'728','height':'90'}` | v1.3.0+ |

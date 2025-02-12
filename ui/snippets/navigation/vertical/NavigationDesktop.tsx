@@ -11,6 +11,7 @@ import useIsAuth from 'ui/snippets/auth/useIsAuth';
 import NetworkLogo from 'ui/snippets/networkMenu/NetworkLogo';
 import NetworkMenu from 'ui/snippets/networkMenu/NetworkMenu';
 
+import Banner from '../../../../oasys-experiment/Banner';
 import TestnetBadge from '../TestnetBadge';
 import NavLink from './NavLink';
 import NavLinkGroup from './NavLinkGroup';
@@ -106,6 +107,9 @@ const NavigationDesktop = () => {
           </VStack>
         </Box>
       ) }
+      <Box mt="auto" mb={ 3 }>
+        <Banner/>
+      </Box>
       <IconSvg
         name="arrows/east-mini"
         width={ 6 }
