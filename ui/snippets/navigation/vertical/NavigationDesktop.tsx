@@ -108,7 +108,8 @@ const NavigationDesktop = () => {
           </VStack>
         </Box>
       ) }
-      <Box mt={ 6 }>
+      <Box height="calc(100vh - 500px)" minHeight="0"/>
+      <Box>
         <Banner/>
       </Box>
       <IconSvg
