@@ -214,7 +214,7 @@ Settings for meta tags, OG tags and SEO
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_PROMOTE_BLOCKSCOUT_IN_TITLE | `boolean` | Set to `true` to promote Blockscout in meta and OG titles | - | `true` | `true` | v1.12.0+ |
 | NEXT_PUBLIC_OG_DESCRIPTION | `string` | Custom OG description | - | - | `Blockscout is the #1 open-source blockchain explorer available today. 100+ chains and counting rely on Blockscout data availability, APIs, and ecosystem tools to support their networks.` | v1.12.0+ |
-| NEXT_PUBLIC_OG_IMAGE_URL | `string` | OG image url. Minimum image size is 200 x 20 pixels (recommended: 1200 x 600); maximum supported file size is 8 MB; 2:1 aspect ratio; supported formats: image/jpeg, image/gif, image/png | - | `static/og_placeholder.png` | `https://placekitten.com/1200/600` | v1.12.0+ |
+| NEXT_PUBLIC_OG_IMAGE_URL | `string` | OG image url. Minimum image size is 200 x 20 pixels (recommended: 1200 x 600); maximum supported file size is 8 MB; 2:1 aspect ratio; supported formats: image/jpeg, image/gif, image/png | - | `static/og_placeholder.png` | `https://placekitten.com/1200/600` | v1.12.0+ |
 | NEXT_PUBLIC_OG_ENHANCED_DATA_ENABLED | `boolean` | Set to `true` to populate OG tags (title, description) with API data for social preview robot requests | - | `false` | `true` | v1.29.0+ |
 | NEXT_PUBLIC_SEO_ENHANCED_DATA_ENABLED | `boolean` | Set to `true` to pre-render page titles (e.g Token page) on the server side and inject page h1-tag to the markup before it is sent to the browser. | - | `false` | `true` | v1.30.0+ |
 
@@ -408,6 +408,8 @@ This feature is **enabled by default** with the `slise` ads provider. To switch 
 
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_BANNER_IMAGE_URL | `string` | URL for custom banner image displayed in the bottom left corner | Optional | - | `https://example.com/banner.png` | v1.0.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL | `string` | URL that the banner will redirect to when clicked | Optional | - | `https://example.com` | v1.0.x+ |
 | NEXT_PUBLIC_AD_BANNER_PROVIDER | `slise` \| `adbutler` \| `coinzilla` \|  `hype` \| `getit` \| `none` | Ads provider  | - | `slise` | `coinzilla` | v1.0.x+ |
 | NEXT_PUBLIC_AD_BANNER_ADDITIONAL_PROVIDER | `adbutler` | Additional ads provider to mix with the main one | - | - | `adbutler` | v1.28.0+ |
 | NEXT_PUBLIC_AD_ADBUTLER_CONFIG_DESKTOP | `{ id: string; width: string; height: string }` | Placement config for desktop Adbutler banner | - | - | `{'id':'123456','width':'728','height':'90'}` | v1.3.0+ |
@@ -849,3 +851,20 @@ For obtaining the variables values please refer to [reCAPTCHA documentation](htt
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_RE_CAPTCHA_V3_APP_SITE_KEY | `string` | Google reCAPTCHA v3 site key | - | - | `<your-secret>` | v1.36.0+ |
 | NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY | `string` | **DEPRECATED** Google reCAPTCHA v2 site key | - | - | `<your-secret>` | v1.0.x+ |
+
+### Custom Banner Image
+
+This feature allows you to display a custom banner image in the bottom left corner of the explorer.
+
+**Note**: When using this feature, you need to add the image domain to the Next.js configuration in `next.config.js`:
+```javascript
+module.exports = {
+  images: {
+    domains: ['your-image-domain.com'],
+  },
+}
+```
+
+| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_BANNER_IMAGE_URL | `string` | URL for custom banner image displayed in the bottom left corner. Recommended size: 200x100 pixels. Supported formats: image/jpeg, image/png. The image domain must be configured in next.config.js | Optional | - | `https://example.com/banner.png` | v1.36.x+ |
