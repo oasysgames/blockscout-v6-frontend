@@ -5,6 +5,7 @@ import { ChainId, TokenIndex } from '../types';
 
 export const GeekVerse = defineChain({
   id: ChainId.GEEK,
+  verseVersion: 1,
   name: 'Geek Verse',
   nativeCurrency: { name: 'Oasys', symbol: 'OAS', decimals: 18 },
   rpcUrls: {

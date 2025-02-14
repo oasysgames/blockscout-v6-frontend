@@ -103,3 +103,11 @@ export function getTokenList(
 
   return list;
 }
+
+interface ChainWithVerseVersion {
+  verseVersion?: 0 | 1
+}
+
+export function getVerseVersion(chainId: ChainId) {
+  return (getChainInfo(chainId) as ChainWithVerseVersion).verseVersion
+}
