@@ -162,7 +162,7 @@ const Experiment = () => {
                 {stat.chainName}
               </Text>
               <Text fontSize="2xl" fontWeight="bold" color="blue.500">
-                {stat.accumulated_amount.toFixed(2)} OAS
+                {(stat.accumulated_amount / 1000).toFixed(2)}k OAS
               </Text>
               <Text fontSize="sm" color="gray.500">
                 Last Update: {new Date(Number(stat.latestBlockTime) * 1000).toLocaleString()}
@@ -181,11 +181,11 @@ const Experiment = () => {
               description="Daily total deposit"
               items={chain.data.map(item => ({
                 date: new Date(item.date),
-                value: item.value,
+                value: item.value / 1000,
               }))}
               isLoading={isLoading}
               isError={!!error}
-              units="OAS"
+              units="k OAS"
             />
           </Box>
         );
