@@ -1,4 +1,4 @@
-import { Box, Select, Input, Grid, Text, VStack, HStack, Spinner, SimpleGrid } from '@chakra-ui/react';
+import { Box, Select, Input, Grid, Text, VStack, HStack, Spinner, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -37,6 +37,10 @@ const Experiment = () => {
     chainChartData,
   } = useExperiment();
 
+  const bgColor = useColorModeValue('white', 'gray.800');
+  const textColor = useColorModeValue('gray.800', 'white');
+  const boxShadow = useColorModeValue('sm', 'none');
+
   return (
     <>
       {/* Filter Section */}
@@ -65,7 +69,7 @@ const Experiment = () => {
 
       {/* Total Deposit Heading */}
       <Box mb={6}>
-        <Text fontSize="2xl" fontWeight="bold">
+        <Text fontSize="2xl" fontWeight="bold" color={textColor}>
           Total Deposit
         </Text>
       </Box>
@@ -89,9 +93,9 @@ const Experiment = () => {
         {/* Pie Chart */}
         <Box
           p={5}
-          bg="white"
+          bg={bgColor}
           borderRadius="lg"
-          boxShadow="sm"
+          boxShadow={boxShadow}
           display="flex"
           flexDirection="column"
           alignItems="center"
@@ -121,8 +125,7 @@ const Experiment = () => {
               transform="translate(-50%, -50%)"
               spacing={0}
             >
-              
-              <Text fontSize="sm" color="gray.500">Total Deposit</Text>
+              <Text fontSize="sm" color={textColor}>Total Deposit</Text>
             </VStack>
           </Box>
           {/* Legend */}
@@ -140,7 +143,7 @@ const Experiment = () => {
                       borderRadius="sm"
                       bg={CHART_COLORS[index % CHART_COLORS.length]}
                     />
-                    <Text fontSize="sm">{chain.chainName}</Text>
+                    <Text fontSize="sm" color={textColor}>{chain.chainName}</Text>
                     <Text fontSize="sm" color="gray.500" ml="auto">{percentage}%</Text>
                   </HStack>
                 );
@@ -154,11 +157,11 @@ const Experiment = () => {
             <Box
               key={stat.chainName}
               p={5}
-              bg="white"
+              bg={bgColor}
               borderRadius="lg"
-              boxShadow="sm"
+              boxShadow={boxShadow}
             >
-              <Text fontSize="lg" fontWeight="bold" mb={2}>
+              <Text fontSize="lg" fontWeight="bold" mb={2} color={textColor}>
                 {stat.chainName}
               </Text>
               <Text fontSize="2xl" fontWeight="bold" color="blue.500">
