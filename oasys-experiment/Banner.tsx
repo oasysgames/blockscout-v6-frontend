@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React from 'react';
 
-import { getEnvValue } from 'configs/app/utils';
-import { useAppContext } from 'lib/contexts/app';
-import * as cookies from 'lib/cookies';
+import { getEnvValue } from '../configs/app/utils';
+import { useAppContext } from '../lib/contexts/app';
+import * as cookies from '../lib/cookies';
 
 interface BannerConfig {
   imageUrl: string;
