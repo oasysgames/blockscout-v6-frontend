@@ -165,6 +165,7 @@ _Note_ Here, all values are arrays of up to two strings. The first string repres
 | NEXT_PUBLIC_NAVIGATION_LAYOUT | `vertical \| horizontal` | Navigation menu layout type | - | `vertical` | `horizontal` | v1.32.0+ |
 | NEXT_PUBLIC_MENU_BRIDGE_VISIBLE | `boolean` | Set to true to show bridged Token | - | - | `false` | v1.32.x+ |
 | NEXT_PUBLIC_L2_CHAIN_ID | `number` | Chain id, see [https://chainlist.org](https://chainlist.org) for the reference | - | -  | `99` | v1.33.x+ |
+| NEXT_PUBLIC_VERSE_VERSION | `0 or 1` | Verse version | - | 0 | `1` | v1.33.x+ |
 
 #### Featured network configuration properties
 
