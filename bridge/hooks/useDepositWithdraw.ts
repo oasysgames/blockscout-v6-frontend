@@ -21,9 +21,8 @@ type UseDepositWithdrawReturn = [
 // for Withdraw
 const l2StandardBridgeAddr = '0x4200000000000000000000000000000000000010';
 const l2OASLegacyAddr = '0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000';
-const verseV1 = [ ChainId.SAAKURU ];
 
-export function useDepositWithdraw(): UseDepositWithdrawReturn {
+export function useDepositWithdraw(verseVersion: 0 | 1): UseDepositWithdrawReturn {
   const { writeContractAsync, data: hash, error } = useWriteContract();
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
@@ -115,7 +114,7 @@ export function useDepositWithdraw(): UseDepositWithdrawReturn {
         abi: l2StandardBridgeAbi,
         functionName: 'withdraw',
         // in case native token and verse v1, need to pass value
-        value: isNative && verseV1.includes(l2ChainId) ? parsedAmount : BigInt(0),
+        value: isNative && verseVersion ? parsedAmount : BigInt(0),
         args: [ l2TokenAddr, parsedAmount, 0, '0x' ],
         account: address,
       });

@@ -165,6 +165,7 @@ _Note_ Here, all values are arrays of up to two strings. The first string repres
 | NEXT_PUBLIC_NAVIGATION_LAYOUT | `vertical \| horizontal` | Navigation menu layout type | - | `vertical` | `horizontal` | v1.32.0+ |
 | NEXT_PUBLIC_MENU_BRIDGE_VISIBLE | `boolean` | Set to true to show bridged Token | - | - | `false` | v1.32.x+ |
 | NEXT_PUBLIC_L2_CHAIN_ID | `number` | Chain id, see [https://chainlist.org](https://chainlist.org) for the reference | - | -  | `99` | v1.33.x+ |
+| NEXT_PUBLIC_VERSE_VERSION | `0 or 1` | Verse version | - | 0 | `1` | v1.33.x+ |
 
 #### Featured network configuration properties
 
@@ -408,8 +409,6 @@ This feature is **enabled by default** with the `slise` ads provider. To switch 
 
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
-| NEXT_PUBLIC_BANNER_IMAGE_URL | `string` | URL for custom banner image displayed in the bottom left corner | Optional | - | `https://example.com/banner.png` | v1.0.x+ |
-| NEXT_PUBLIC_BANNER_LINK_URL | `string` | URL that the banner will redirect to when clicked | Optional | - | `https://example.com` | v1.0.x+ |
 | NEXT_PUBLIC_AD_BANNER_PROVIDER | `slise` \| `adbutler` \| `coinzilla` \|  `hype` \| `getit` \| `none` | Ads provider  | - | `slise` | `coinzilla` | v1.0.x+ |
 | NEXT_PUBLIC_AD_BANNER_ADDITIONAL_PROVIDER | `adbutler` | Additional ads provider to mix with the main one | - | - | `adbutler` | v1.28.0+ |
 | NEXT_PUBLIC_AD_ADBUTLER_CONFIG_DESKTOP | `{ id: string; width: string; height: string }` | Placement config for desktop Adbutler banner | - | - | `{'id':'123456','width':'728','height':'90'}` | v1.3.0+ |
@@ -565,6 +564,7 @@ This feature is **always enabled**, but you can disable it by passing `none` val
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_STATS_API_HOST | `string` | Stats API endpoint url | Required | - | `https://stats.services.blockscout.com` | v1.0.x+ |
 | NEXT_PUBLIC_STATS_API_BASE_PATH | `string` | Base path for Stats API endpoint url | - | - | `/poa/core` | v1.29.0+ |
+| NEXT_PUBLIC_EXPERIMENT_API_URL | `string` | TheGraph API endpoint url | - | `http://localhost:8000/subgraphs/name/oasys/bridge` | `https://api.thegraph.com/subgraphs/name/oasys/bridge` | v1.0.x+ |
 
 &nbsp;
 
@@ -868,3 +868,25 @@ module.exports = {
 | Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_BANNER_IMAGE_URL | `string` | URL for custom banner image displayed in the bottom left corner. Recommended size: 200x100 pixels. Supported formats: image/jpeg, image/png. The image domain must be configured in next.config.js | Optional | - | `https://example.com/banner.png` | v1.36.x+ |
+
+### Custom Banner Images
+
+This feature allows you to display up to three custom banner images in the left navigation bar. Each banner can have its own link URL.
+
+**Note**: When using this feature, you need to add the image domains to the Next.js configuration in `next.config.js`:
+```javascript
+module.exports = {
+  images: {
+    domains: ['your-image-domain.com'],
+  },
+}
+```
+
+| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_BANNER_IMAGE_URL_1 | `string` | URL for the first banner image. Recommended size: 160x80 pixels. Supported formats: image/jpeg, image/png. The image domain must be configured in next.config.js | Optional | - | `https://example.com/banner1.png` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL_1 | `string` | URL that the first banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_IMAGE_URL_2 | `string` | URL for the second banner image. Same specifications as the first banner. | Optional | - | `https://example.com/banner2.png` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL_2 | `string` | URL that the second banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_IMAGE_URL_3 | `string` | URL for the third banner image. Same specifications as the first banner. | Optional | - | `https://example.com/banner3.png` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL_3 | `string` | URL that the third banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |

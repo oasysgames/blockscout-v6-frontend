@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import type { ArbitrumMessageStatus } from 'types/api/transaction';
 
 export const MESSAGE_DESCRIPTIONS: Record<ArbitrumMessageStatus, string> = {

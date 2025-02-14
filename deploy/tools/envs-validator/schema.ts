@@ -775,6 +775,7 @@ const schema = yup
       }),
     NEXT_PUBLIC_STATS_API_HOST: yup.string().test(urlTest),
     NEXT_PUBLIC_STATS_API_BASE_PATH: yup.string(),
+    NEXT_PUBLIC_EXPERIMENT_API_URL: yup.string().test(urlTest),
     NEXT_PUBLIC_VISUALIZE_API_HOST: yup.string().test(urlTest),
     NEXT_PUBLIC_VISUALIZE_API_BASE_PATH: yup.string(),
     NEXT_PUBLIC_CONTRACT_INFO_API_HOST: yup.string().test(urlTest),
@@ -889,9 +890,13 @@ const schema = yup
 
     // Misc
     NEXT_PUBLIC_USE_NEXT_JS_PROXY: yup.boolean(),
-    // banner
-    NEXT_PUBLIC_BANNER_IMAGE_URL: yup.string().test(urlTest),
-    NEXT_PUBLIC_BANNER_LINK_URL: yup.string().test(urlTest),
+    // banners
+    NEXT_PUBLIC_BANNER_IMAGE_URL_1: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_1: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_IMAGE_URL_2: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_2: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_IMAGE_URL_3: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_3: yup.string().test(urlTest),
   })
   .concat(accountSchema)
   .concat(adsBannerSchema)
