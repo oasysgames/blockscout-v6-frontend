@@ -889,9 +889,13 @@ const schema = yup
 
     // Misc
     NEXT_PUBLIC_USE_NEXT_JS_PROXY: yup.boolean(),
-    // banner
-    NEXT_PUBLIC_BANNER_IMAGE_URL: yup.string().test(urlTest),
-    NEXT_PUBLIC_BANNER_LINK_URL: yup.string().test(urlTest),
+    // banners
+    NEXT_PUBLIC_BANNER_IMAGE_URL_1: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_1: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_IMAGE_URL_2: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_2: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_IMAGE_URL_3: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_3: yup.string().test(urlTest),
   })
   .concat(accountSchema)
   .concat(adsBannerSchema)

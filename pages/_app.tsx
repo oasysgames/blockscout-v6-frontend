@@ -29,8 +29,6 @@ import GoogleAnalytics from 'ui/shared/GoogleAnalytics';
 import Layout from 'ui/shared/layout/Layout';
 import Web3ModalProvider from 'ui/shared/Web3ModalProvider';
 
-import Banner from '../oasys-experiment/Banner';
-
 import 'lib/setLocale';
 // import 'focus-visible/dist/focus-visible';
 
@@ -93,7 +91,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           </AppContextProvider>
         </Web3ModalProvider>
       </AppErrorBoundary>
-      <Banner/>
     </ChakraProvider>
   );
 }
