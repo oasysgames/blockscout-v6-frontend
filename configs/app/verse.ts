@@ -18,4 +18,7 @@ export default Object.freeze({
   coinPrice: {
     isDisabled: getEnvValue('NEXT_PUBLIC_PRICE_TRACKER_DISABLE') === 'true',
   },
+  experiment: {
+    isVisible: getEnvValue('NEXT_PUBLIC_EXPERIMENT_API_URL') ? true : false,
+  },
 });

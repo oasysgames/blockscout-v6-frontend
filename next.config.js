@@ -46,6 +46,7 @@ const moduleExports = {
   output: 'standalone',
   productionBrowserSourceMaps: true,
   experimental: {
+    appDir: true,
     staleTimes: {
       dynamic: 30,
       'static': 180,
