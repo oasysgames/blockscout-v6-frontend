@@ -852,23 +852,6 @@ For obtaining the variables values please refer to [reCAPTCHA documentation](htt
 | NEXT_PUBLIC_RE_CAPTCHA_V3_APP_SITE_KEY | `string` | Google reCAPTCHA v3 site key | - | - | `<your-secret>` | v1.36.0+ |
 | NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY | `string` | **DEPRECATED** Google reCAPTCHA v2 site key | - | - | `<your-secret>` | v1.0.x+ |
 
-### Custom Banner Image
-
-This feature allows you to display a custom banner image in the bottom left corner of the explorer.
-
-**Note**: When using this feature, you need to add the image domain to the Next.js configuration in `next.config.js`:
-```javascript
-module.exports = {
-  images: {
-    domains: ['your-image-domain.com'],
-  },
-}
-```
-
-| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
-| --- | --- | --- | --- | --- | --- | --- |
-| NEXT_PUBLIC_BANNER_IMAGE_URL | `string` | URL for custom banner image displayed in the bottom left corner. Recommended size: 200x100 pixels. Supported formats: image/jpeg, image/png. The image domain must be configured in next.config.js | Optional | - | `https://example.com/banner.png` | v1.36.x+ |
-
 ### Custom Banner Images
 
 This feature allows you to display up to three custom banner images in the left navigation bar. Each banner can have its own link URL.
