@@ -1,0 +1,146 @@
+[
+  {
+    "title": "HUB-Mainnet",
+    "url": "https://explorer.oasys.games/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "HUB-Testnet",
+    "url": "https://explorer.testnet.oasys.games/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "SAND-Verse",
+    "url": "https://explorer.sandverse.oasys.games/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "MCHVerse-Mainnet",
+    "url": "https://explorer.oasys.mycryptoheroes.net/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "TCGVerse-Mainnet",
+    "url": "https://explorer.tcgverse.xyz/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "HomeVerse-Mainnet",
+    "url": "https://explorer.oasys.homeverse.games/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "SaakuruVerse-Mainnet",
+    "url": "https://explorer.saakuru.network/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "GEEK Verse-Mainnet",
+    "url": "https://explorer.geekout-pte.com/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "MCHVerse-Testnet",
+    "url": "https://explorer.oasys.sand.mchdfgh.xyz/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "TCGVerse-Testnet",
+    "url": "https://explorer.testnet.tcgverse.xyz/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "HOMEVerse-Testnet",
+    "url": "https://explorer.testnet.oasys.homeverse.games/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "DM2 Verse",
+    "url": "https://explorer.dm2verse.dmm.com/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "GESO Verse-Mainnet",
+    "url": "https://explorer.verse.gesoten.com/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "GESO Verse-Testnet",
+    "url": "https://explorer.testnet.verse.gesoten.com/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "YooldoVerse-Testnet",
+    "url": "https://explorer.testnet.yooldo-verse.xyz/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "YooldoVerse-Mainnet",
+    "url": "https://explorer.yooldo-verse.xyz/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "Chainverse-Mainnet",
+    "url": "https://explorer.chainverse.info/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "DeFiVerse-Mainnet",
+    "url": "https://scan.defi-verse.org/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "Saakuru-Testnet",
+    "url": "https://explorer-testnet.saakuru.network/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "DeFiVerse-Testnet",
+    "url": "https://scan-testnet.defi-verse.org/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "XPLA Verse-Mainnet",
+    "url": "https://explorer-xpla-verse.xpla.dev/",
+    "group": "Mainnets",
+    "icon": ""
+  },
+  {
+    "title": "XPLA Verse-Testnet",
+    "url": "https://explorer-xpla-verse-test.xpla.dev/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "GEEK Verse-Testnet",
+    "url": "https://explorer-testnet.geekout-pte.com/",
+    "group": "Testnets",
+    "icon": ""
+  },
+  {
+    "title": "SG Verse-Mainnet",
+    "url": "https://explorer.sgverse.net/",
+    "group": "Mainnets",
+    "icon": ""
+  }
+] 
