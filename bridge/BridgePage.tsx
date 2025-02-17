@@ -109,7 +109,7 @@ const BridgePage = () => {
   const [ isSelectTokenOpen, setIsSelectTokenOpen ] = useState(false);
 
   return (
-    <div className="relative flex flex-col justify-center items-center bg-white">
+    <div className="relative flex flex-col justify-center items-center">
       <div className="bg-gray-100 p-6 rounded-lg shadow-md w-full max-w-md mt-12 mb-6">
         <h1 className="text-xl font-semibold mb-4 text-gray-600">Bridge Route</h1>
 
