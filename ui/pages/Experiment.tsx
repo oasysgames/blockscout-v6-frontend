@@ -1,4 +1,4 @@
-import { Box, Select, Input, Grid, Text, VStack, HStack, Spinner, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
+import { Box, Select, Input, Grid, Text, VStack, HStack, Spinner, SimpleGrid, useColorModeValue, Image } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
@@ -18,6 +18,11 @@ const CHART_COLORS = [
   '#B794F4', // violet
   '#F6AD55', // orange
 ];
+
+const getChainLogoPath = (chainName: string) => {
+  const baseName = chainName.toLowerCase().replace('verse', '');
+  return `/images/chains/${baseName}.png`;
+};
 
 const Experiment = () => {
   const {
@@ -136,13 +141,24 @@ const Experiment = () => {
                 const total = totalAccumulatedByChain.reduce((sum, c) => sum + c.accumulated_amount, 0);
                 const percentage = ((chain.accumulated_amount / total) * 100).toFixed(1);
                 return (
-                  <HStack key={chain.chainName} spacing={2}>
+                  <HStack key={chain.chainName} spacing={2} align="center">
                     <Box
                       w="12px"
                       h="12px"
                       borderRadius="sm"
                       bg={CHART_COLORS[index % CHART_COLORS.length]}
                     />
+                    <Box w="20px" h="20px" position="relative">
+                      <Image
+                        src={getChainLogoPath(chain.chainName)}
+                        alt={`${chain.chainName} logo`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain'
+                        }}
+                      />
+                    </Box>
                     <Text fontSize="sm" color={textColor}>{chain.chainName}</Text>
                     <Text fontSize="sm" color="gray.500" ml="auto">{percentage}%</Text>
                   </HStack>
@@ -161,9 +177,22 @@ const Experiment = () => {
               borderRadius="lg"
               boxShadow={boxShadow}
             >
-              <Text fontSize="lg" fontWeight="bold" mb={2} color={textColor}>
-                {stat.chainName}
-              </Text>
+              <HStack spacing={2} mb={2} align="center">
+                <Box w="32px" h="32px" position="relative">
+                  <Image
+                    src={getChainLogoPath(stat.chainName)}
+                    alt={`${stat.chainName} logo`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain'
+                    }}
+                  />
+                </Box>
+                <Text fontSize="lg" fontWeight="bold" color={textColor}>
+                  {stat.chainName}
+                </Text>
+              </HStack>
               <Text fontSize="2xl" fontWeight="bold" color="blue.500">
                 {(stat.accumulated_amount / 1000).toFixed(2)}k OAS
               </Text>
