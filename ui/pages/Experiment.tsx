@@ -74,9 +74,14 @@ const Experiment = () => {
 
       {/* Total Deposit Heading */}
       <Box mb={6}>
-        <Text fontSize="2xl" fontWeight="bold" color={textColor}>
-          Total Deposit
-        </Text>
+        <HStack spacing={4} align="baseline">
+          <Text fontSize="2xl" fontWeight="bold" color={textColor}>
+            Total Deposit
+          </Text>
+          <Text fontSize="xl" fontWeight="semibold" color="blue.500">
+            {(totalAccumulatedByChain.reduce((sum, chain) => sum + chain.accumulated_amount, 0) / 1000).toFixed(2)}k OAS
+          </Text>
+        </HStack>
       </Box>
 
       {/* Loading State */}
@@ -128,9 +133,13 @@ const Experiment = () => {
               top="50%"
               left="50%"
               transform="translate(-50%, -50%)"
-              spacing={0}
+              spacing={1}
+              align="center"
             >
               <Text fontSize="sm" color={textColor}>Total Deposit</Text>
+              <Text fontSize="xl" fontWeight="bold" color={textColor}>
+                {(totalAccumulatedByChain.reduce((sum, chain) => sum + chain.accumulated_amount, 0) / 1000).toFixed(2)}k OAS
+              </Text>
             </VStack>
           </Box>
           {/* Legend */}
