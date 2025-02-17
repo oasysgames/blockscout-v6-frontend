@@ -5,7 +5,7 @@ import { useSwitchChain } from 'wagmi';
 
 import { ChainId, TokenIndex } from './constants/types';
 
-import { CHAINS, getTokenList } from './constants/chains';
+import { CHAINS, getTokenList, getVerseVersion } from './constants/chains';
 import { getTokenInfo } from './constants/tokens';
 import { getChainIcon } from './constants/verseicons';
 import { useBalances } from './hooks/useBalances';
@@ -17,6 +17,7 @@ import config from 'configs/app';
 
 // Get l2ChainId from .env
 const l2ChainId = Number(config.verse.bridge.l2ChainId) as ChainId;
+const verseVersion = Number(config.verse.bridge.verseVersion) || getVerseVersion(l2ChainId);
 
 // Validation Only numbers with a decimal point
 const validateInput = (inputValue: string): boolean => {
@@ -48,7 +49,7 @@ const BridgePage = () => {
     switchChainAsync({ chainId })
   }, [isDeposit])
 
-  const [ deposit, withdraw, loading, hash, error ] = useDepositWithdraw();
+  const [ deposit, withdraw, loading, hash, error ] = useDepositWithdraw(verseVersion ? 1 : 0);
 
   const doBridge = useCallback(() => {
     if (isDeposit) {

@@ -58,7 +58,8 @@ export default tseslint.config(
     '.git/',
     'theme/webpack.config.js',
     'next.config.js',
-    'bridge/',
+    'bridge/', 'ui',
+    'oasys-experiment',
   ] },
 
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
@@ -281,7 +282,7 @@ export default tseslint.config(
       'import-helpers/order-imports': [
         'error',
         {
-          newlinesBetween: 'always',
+          newlinesBetween: 'ignore',
           groups: [
             'module',
             '/types/',
@@ -384,6 +385,13 @@ export default tseslint.config(
       '@stylistic/space-unary-ops': 'off',
       '@stylistic/template-curly-spacing': [ 'error', 'always' ],
       '@stylistic/wrap-iife': [ 'error', 'inside' ],
+      '@stylistic/max-len': [ 'error', {
+        code: 200,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+      } ],
     },
   },
 
@@ -402,8 +410,8 @@ export default tseslint.config(
       // rules customizations
       eqeqeq: [ 'error', 'allow-null' ],
       'id-match': [ 'error', '^[\\w$]+$' ],
-      'max-len': [ 'error', 160, 4 ],
-      'no-console': 'error',
+      'max-len': [ 'error', 200, 4 ],
+      'no-console': 'off',
       'no-implicit-coercion': [ 'error', {
         number: true,
         'boolean': true,

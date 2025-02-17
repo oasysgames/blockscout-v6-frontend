@@ -14,8 +14,12 @@ export default Object.freeze({
   bridge: {
     isVisible: getEnvValue('NEXT_PUBLIC_MENU_BRIDGE_VISIBLE') === 'true',
     l2ChainId: getEnvValue('NEXT_PUBLIC_L2_CHAIN_ID') || ChainId.TCG,
+    verseVersion: getEnvValue('NEXT_PUBLIC_VERSE_VERSION'),
   },
   coinPrice: {
     isDisabled: getEnvValue('NEXT_PUBLIC_PRICE_TRACKER_DISABLE') === 'true',
+  },
+  experiment: {
+    isVisible: getEnvValue('NEXT_PUBLIC_EXPERIMENT_API_URL') ? true : false,
   },
 });
