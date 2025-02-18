@@ -897,6 +897,11 @@ const schema = yup
     NEXT_PUBLIC_BANNER_LINK_URL_2: yup.string().test(urlTest),
     NEXT_PUBLIC_BANNER_IMAGE_URL_3: yup.string().test(urlTest),
     NEXT_PUBLIC_BANNER_LINK_URL_3: yup.string().test(urlTest),
+
+    // header banner
+    NEXT_PUBLIC_HEADER_ALERT_ENABLED: yup.boolean(),
+    NEXT_PUBLIC_HEADER_ALERT_EXPLORER_URL: yup.string().test(urlTest),
+    NEXT_PUBLIC_HEADER_ALERT_DISCORD_URL: yup.string().test(urlTest),
   })
   .concat(accountSchema)
   .concat(adsBannerSchema)

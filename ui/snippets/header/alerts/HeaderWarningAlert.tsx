@@ -6,7 +6,6 @@ import { getEnvValue } from 'configs/app/utils';
 const HeaderWarningAlert = () => {
   const [ isAlertClosed, setIsAlertClosed ] = React.useState(false);
   const envValue = getEnvValue('NEXT_PUBLIC_HEADER_ALERT_ENABLED');
-  console.log('HeaderWarningAlert: NEXT_PUBLIC_HEADER_ALERT_ENABLED =', envValue);
   const isEnabled = envValue === 'true';
   const explorerUrl = getEnvValue('NEXT_PUBLIC_HEADER_ALERT_EXPLORER_URL') || 'https://explorer.oasys.games/';
   const discordUrl = getEnvValue('NEXT_PUBLIC_HEADER_ALERT_DISCORD_URL') || 'https://discord.gg/8hfWTbKVex';

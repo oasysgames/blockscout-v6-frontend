@@ -873,3 +873,13 @@ module.exports = {
 | NEXT_PUBLIC_BANNER_LINK_URL_2 | `string` | URL that the second banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
 | NEXT_PUBLIC_BANNER_IMAGE_URL_3 | `string` | URL for the third banner image. Same specifications as the first banner. | Optional | - | `https://example.com/banner3.png` | v1.36.x+ |
 | NEXT_PUBLIC_BANNER_LINK_URL_3 | `string` | URL that the third banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+
+### Header Alert
+
+This feature allows you to display a custom alert banner in the header of the application. The banner can have up to two customizable links (e.g., Explorer URL and Discord URL). The banner will appear prominently in the header when the feature is enabled.
+
+| Variable | Type | Description | Compulsoriness  | Default Value | Example Value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| `NEXT_PUBLIC_HEADER_ALERT_ENABLED` | `boolean` | Set to `true` to enable the header alert banner | Required | `false` | `true` | v1.36.0+ |
+| `NEXT_PUBLIC_HEADER_ALERT_EXPLORER_URL` | `string` | URL that the "Explorer" link in the banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+| `NEXT_PUBLIC_HEADER_ALERT_DISCORD_URL` | `string` | URL that the "Discord" link in the banner will redirect to when clicked | Optional | `#` | `https://discord.com` | v1.36.x+ |
