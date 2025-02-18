@@ -16,7 +16,8 @@ const Banner: React.FC = () => {
   const appProps = useAppContext();
   const cookiesString = appProps.cookies;
   const isNavBarCollapsedCookie = cookies.get(cookies.NAMES.NAV_BAR_COLLAPSED, cookiesString);
-  const isNavBarCollapsed = isNavBarCollapsedCookie === 'true';
+  // 初回アクセス時（クッキー未設定時）はメニューが閉じている状態とみなす
+  const isNavBarCollapsed = isNavBarCollapsedCookie === undefined ? true : isNavBarCollapsedCookie === 'true';
 
   // 3つのバナー設定を取得
   const bannerConfigs = [
