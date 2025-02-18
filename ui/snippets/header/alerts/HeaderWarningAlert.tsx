@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, CloseButton, Link } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, CloseButton, Link, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { getEnvValue } from 'configs/app/utils';
@@ -21,16 +21,23 @@ const HeaderWarningAlert = () => {
 
   return (
     <Alert status="warning" as={Box} borderRadius="12px">
-      <AlertIcon/>
-      Make sure you are visiting
-      <Link href={explorerUrl} isExternal color="blue.600" marginX="1">
-        {explorerUrl}
-      </Link>
-      . Oasys Official Discord is hacked! Join our new
-      <Link href={discordUrl} isExternal color="blue.600" marginX="1">
-        server
-      </Link>
-      .
+      <AlertIcon alignSelf="flex-start" mt="4px"/>
+      <Box flex="1" pr="40px">
+        <Flex direction="column" gap={1}>
+          <Box>
+            Make sure you are visiting{' '}
+            <Link href={explorerUrl} isExternal color="blue.600" display="inline-block" wordBreak="break-all">
+              {explorerUrl}
+            </Link>
+          </Box>
+          <Box>
+            Oasys Official Discord is hacked! Join our new{' '}
+            <Link href={discordUrl} isExternal color="blue.600" display="inline-block">
+              server
+            </Link>
+          </Box>
+        </Flex>
+      </Box>
       <CloseButton
         position="absolute"
         right="8px"
