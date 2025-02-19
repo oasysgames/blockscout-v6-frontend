@@ -74,12 +74,15 @@ const Experiment = () => {
 
       {/* Total Deposit Heading */}
       <Box mb={6}>
-        <HStack spacing={4} align="baseline">
+        <HStack spacing={4} align="baseline" wrap="wrap">
           <Text fontSize="2xl" fontWeight="bold" color={textColor}>
             Total Deposit
           </Text>
           <Text fontSize="xl" fontWeight="semibold" color="blue.500">
-            {(totalAccumulatedByChain.reduce((sum, chain) => sum + chain.accumulated_amount, 0) / 1000).toFixed(2)}k OAS
+            {((totalAccumulatedByChain.reduce((sum, chain) => sum + chain.accumulated_amount, 0) / 1000)).toLocaleString(undefined, { maximumFractionDigits: 2 })}k OAS
+          </Text>
+          <Text fontSize="md" color="gray.500">
+            (Last Update: {new Date(Math.max(...totalAccumulatedByChain.map(chain => Number(chain.latestBlockTime) * 1000))).toLocaleString()})
           </Text>
         </HStack>
       </Box>
@@ -138,7 +141,7 @@ const Experiment = () => {
             >
               <Text fontSize="sm" color={textColor}>Total Deposit</Text>
               <Text fontSize="xl" fontWeight="bold" color={textColor}>
-                {(totalAccumulatedByChain.reduce((sum, chain) => sum + chain.accumulated_amount, 0) / 1000).toFixed(2)}k OAS
+                {((totalAccumulatedByChain.reduce((sum, chain) => sum + chain.accumulated_amount, 0) / 1000)).toLocaleString(undefined, { maximumFractionDigits: 2 })}k OAS
               </Text>
             </VStack>
           </Box>
@@ -203,7 +206,7 @@ const Experiment = () => {
                 </Text>
               </HStack>
               <Text fontSize="2xl" fontWeight="bold" color="blue.500">
-                {(stat.accumulated_amount / 1000).toFixed(2)}k OAS
+                {(stat.accumulated_amount / 1000).toLocaleString(undefined, { maximumFractionDigits: 2 })}k OAS
               </Text>
               <Text fontSize="sm" color="gray.500">
                 Last Update: {new Date(Number(stat.latestBlockTime) * 1000).toLocaleString()}
