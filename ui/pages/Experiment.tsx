@@ -230,6 +230,7 @@ const Experiment = () => {
               isLoading={isLoading}
               isError={!!error}
               units="OAS"
+              valueFormatter={(val: number) => `${(val / 1000).toLocaleString(undefined, { maximumFractionDigits: 2 })}k`}
             />
           </Box>
         );
