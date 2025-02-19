@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaAngleDown } from 'react-icons/fa';
 import { useSwitchChain } from 'wagmi';
+import { useColorModeValue } from '@chakra-ui/react';
 
 import { ChainId, TokenIndex } from './constants/types';
 
@@ -108,10 +109,15 @@ const BridgePage = () => {
 
   const [ isSelectTokenOpen, setIsSelectTokenOpen ] = useState(false);
 
+  const bgColor = useColorModeValue('gray.100', 'gray.700');
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const textColor = useColorModeValue('gray.600', 'gray.200');
+  const borderColor = useColorModeValue('gray.200', 'gray.600');
+
   return (
     <div className="relative flex flex-col justify-center items-center">
-      <div className="bg-gray-100 p-6 rounded-lg shadow-md w-full max-w-md mt-12 mb-6">
-        <h1 className="text-xl font-semibold mb-4 text-gray-600">Bridge Route</h1>
+      <div className={`p-6 rounded-lg shadow-md w-full max-w-md mt-12 mb-6`} style={{ backgroundColor: bgColor }}>
+        <h1 className="text-xl font-semibold mb-4" style={{ color: textColor }}>Bridge Route</h1>
 
         <div
           style={{
@@ -120,7 +126,7 @@ const BridgePage = () => {
           }}
         >
           <div className="mb-4">
-            <label className="flex flex-wrap items-center justify-between text-gray-700 mb-2">
+            <label className="flex flex-wrap items-center justify-between mb-2" style={{ color: textColor }}>
               <span className="text-sm">
                 <span className="font-medium">{ isDeposit ? 'From' : 'To' } </span>
                 <span className="font-normal">Hub Layer</span>
@@ -129,7 +135,7 @@ const BridgePage = () => {
                 { l1Balance } { tokenInfo.symbol }
               </span>
             </label>
-            <div className="flex items-center border border-gray-200 rounded-lg p-3 bg-white">
+            <div className="flex items-center border rounded-lg p-3" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
               <Image
                 src="/images/oasys_icon.png"
                 alt="Oasys Mainnet"
@@ -137,9 +143,9 @@ const BridgePage = () => {
                 height={ 24 }
                 className="mr-2"
               />
-              <label className="ml-2 font-medium text-gray-600 w-full border-none focus:outline-none">
-								Oasys Mainnet
-              </label>
+              <span className="ml-2 font-medium w-full" style={{ color: textColor }}>
+                Oasys Mainnet
+              </span>
             </div>
           </div>
           <div className="mb-4 text-center">
@@ -150,12 +156,13 @@ const BridgePage = () => {
                 width={ 24 }
                 height={ 24 }
                 className="rotate-90"
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </button>
           </div>
           { /* Verse */ }
           <div className="mb-4">
-            <label className="flex flex-wrap items-center justify-between text-gray-700 mb-2">
+            <label className="flex flex-wrap items-center justify-between mb-2" style={{ color: textColor }}>
               <span className="text-sm">
                 <span className="font-medium">{ isDeposit ? 'To' : 'From' } </span>
                 <span className="font-normal">Verse</span>
@@ -164,7 +171,7 @@ const BridgePage = () => {
                 { l2Balance } { tokenInfo.symbol }
               </span>
             </label>
-            <div className="flex items-center border-gray-200 border rounded-lg p-3 bg-white">
+            <div className="flex items-center border rounded-lg p-3" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
               <Image
                 src={ l2ChainImageUrl }
                 alt="Verse image"
@@ -172,7 +179,7 @@ const BridgePage = () => {
                 height={ 24 }
                 className="mr-2"
               />
-              <label className="ml-2 font-medium text-gray-600 w-full border-none focus:outline-none">
+              <label className="ml-2 font-medium w-full border-none focus:outline-none" style={{ color: textColor }}>
                 { CHAINS[l2ChainId].name }
               </label>
             </div>
@@ -180,13 +187,13 @@ const BridgePage = () => {
         </div>
         <div className="mb-4">
           { /* Asset */ }
-          <label className="block text-gray-700 mb-2 mt-4 font-medium">Asset</label>
-          <div className="flex items-center border border-gray-200 rounded-lg p-3 bg-white">
-            <span className="text-gray-600 font-medium">Send Token (ERC-20)</span>
+          <label className="block mb-2 mt-4 font-medium" style={{ color: textColor }}>Asset</label>
+          <div className="flex items-center border rounded-lg p-3" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
+            <span className="font-medium" style={{ color: textColor }}>Send Token (ERC-20)</span>
           </div>
           <br/>
           { /* Token select */ }
-          <div className="flex flex-col border-gray-200 items-center border rounded-lg p-2 bg-white">
+          <div className="flex flex-col items-center border rounded-lg p-2" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
             <div
               className="flex w-full items-center p-2 cursor-pointer"
               onClick={ () => setIsSelectTokenOpen(true) }
@@ -198,27 +205,29 @@ const BridgePage = () => {
                 height={ 24 }
                 className="mr-2"
               />
-              <label className="ml-2 w-full font-medium border-none focus:outline-none text-gray-600 cursor-pointer">
+              <label className="ml-2 w-full font-medium border-none focus:outline-none cursor-pointer" style={{ color: textColor }}>
                 { tokenInfo.symbol }
               </label>
-              <FaAngleDown className="text-gray-800"/>
+              <FaAngleDown style={{ color: textColor }}/>
               <br/>
             </div>
-            <hr className="w-full border-gray-200"/>
+            <hr className="w-full" style={{ borderColor: borderColor }}/>
             <div className="w-full relative flex items-center">
               <input
                 value={ value }
                 type="text"
                 placeholder="0.0"
-                className="w-full bg-white p-2 font-medium focus:outline-none text-gray-600"
+                className="w-full p-2 font-medium focus:outline-none"
+                style={{ backgroundColor: cardBg, color: textColor }}
                 onChange={ (e) => setValue(e.target.value) }
               />
               <button
                 type="button"
-                className="absolute right-0 text-gray-900 bg-slate-100 border border-gray-300 focus:outline-none hover:bg-gray-200 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-1"
+                className="absolute right-0 border focus:outline-none hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-1"
+                style={{ backgroundColor: bgColor, color: textColor, borderColor: borderColor }}
                 onClick={ setMax }
               >
-								max
+                max
               </button>
             </div>
           </div>
