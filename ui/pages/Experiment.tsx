@@ -140,7 +140,7 @@ const Experiment = () => {
               align="center"
             >
               <Text fontSize="sm" color={textColor}>Total Deposit</Text>
-              <Text fontSize="xl" fontWeight="bold" color={textColor}>
+              <Text fontSize="lg" fontWeight="bold" color="blue.500">
                 {((totalAccumulatedByChain.reduce((sum, chain) => sum + chain.accumulated_amount, 0) / 1000)).toLocaleString(undefined, { maximumFractionDigits: 2 })}k OAS
               </Text>
             </VStack>
