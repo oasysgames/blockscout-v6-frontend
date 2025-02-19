@@ -225,11 +225,11 @@ const Experiment = () => {
               description="Daily total deposit"
               items={chain.data.map(item => ({
                 date: new Date(item.date),
-                value: item.value / 1000,
+                value: Number(item.value),
               }))}
               isLoading={isLoading}
               isError={!!error}
-              units="k OAS"
+              units="OAS"
             />
           </Box>
         );

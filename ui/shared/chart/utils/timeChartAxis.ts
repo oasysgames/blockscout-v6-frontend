@@ -7,7 +7,7 @@ import type { AxesConfig, AxisConfig, TimeChartData } from '../types';
 import { WEEK, MONTH, YEAR } from 'lib/consts';
 
 export const DEFAULT_MAXIMUM_SIGNIFICANT_DIGITS = 2;
-export const DEFAULT_MAXIMUM_FRACTION_DIGITS = 3;
+export const DEFAULT_MAXIMUM_FRACTION_DIGITS = 2;
 export const MAXIMUM_SIGNIFICANT_DIGITS_LIMIT = 8;
 export const DEFAULT_LABEL_LENGTH = 5;
 
@@ -88,6 +88,7 @@ function getYLabelFormatParams(ticks: Array<number>, maximumSignificantDigits = 
     maximumFractionDigits: DEFAULT_MAXIMUM_FRACTION_DIGITS,
     maximumSignificantDigits,
     notation: 'compact' as const,
+    compactDisplay: 'short' as const,
   };
 
   const uniqTicksStr = _unique(ticks.map((tick) => tick.toLocaleString(undefined, params)));
