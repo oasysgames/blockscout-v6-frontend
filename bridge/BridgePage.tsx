@@ -114,6 +114,7 @@ const BridgePage = () => {
   const formBg = useColorModeValue('white', 'gray.700');
   const textColor = useColorModeValue('gray.600', 'gray.200');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
+  const arrowColor = useColorModeValue('#1A202C', '#FFFFFF');
 
   return (
     <Flex direction="column" justify="center" align="center">
@@ -163,7 +164,12 @@ const BridgePage = () => {
                 width={24}
                 height={24}
                 className="rotate-90"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                style={{ 
+                  filter: useColorModeValue(
+                    'invert(0) brightness(0)', // ライトモード: 黒
+                    'invert(1) brightness(1)' // ダークモード: 白
+                  )
+                }}
               />
             </button>
           </Box>
@@ -230,7 +236,7 @@ const BridgePage = () => {
                 <Text ml={2} fontWeight="medium" flex="1" textAlign="left" color={textColor}>
                   {tokenInfo.symbol}
                 </Text>
-                <FaAngleDown style={{ color: textColor }}/>
+                <FaAngleDown style={{ color: arrowColor }}/>
               </Flex>
             </Box>
             <Box mt={2} position="relative">
