@@ -57,7 +57,7 @@
     "title": "TCGVerse-Testnet",
     "url": "https://explorer.testnet.tcgverse.xyz/",
     "group": "Testnets",
-    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/chain.png"
+    "icon": "https://oasys-blockscout-networks.s3.ap-northeast-1.amazonaws.com/verse-logo/tcg.png"
   },
   {
     "title": "HOMEVerse-Testnet",
