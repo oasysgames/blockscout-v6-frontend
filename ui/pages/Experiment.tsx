@@ -1,10 +1,10 @@
 import { Box, Select, Input, Grid, Text, VStack, HStack, Spinner, SimpleGrid, useColorModeValue, Image } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import config from 'configs/app';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import ChartWidget from 'ui/shared/chart/ChartWidget';
-import useExperiment from '../experiment/useExperiment';
+import { useExperiment } from '../experiment/useExperiment';
 
 const CHART_COLORS = [
   '#FF6B6B', // red

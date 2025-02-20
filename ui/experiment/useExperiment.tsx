@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 
 import type { LineChartInfo, LineChartSection } from '@blockscout/stats-types';
 import type { DailyBridgeStat } from './services/types';
@@ -48,12 +48,29 @@ function formatAmount(weiString: string): number {
   return weiNum / 1e18;
 }
 
-export default function useExperiment() {
-  // State
-  const [ startDate, setStartDate ] = useState('2025-01-01');
-  const [ endDate, setEndDate ] = useState('2025-01-31');
-  const [ chainFilter, setChainFilter ] = useState('all');
-  const [ eventTypeFilter, setEventTypeFilter ] = useState('all');
+export const useExperiment = () => {
+  // 初期値を設定
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1; // 現在の月を取得（1-12）
+  
+  // 今月の最終日を取得
+  const lastDayOfMonth = new Date(year, month, 0);
+  
+  // YYYY-MM-DD形式の文字列を作成
+  const firstDayStr = `${year}-${month.toString().padStart(2, '0')}-01`;
+  const lastDayStr = `${year}-${month.toString().padStart(2, '0')}-${lastDayOfMonth.getDate().toString().padStart(2, '0')}`;
+
+  const [startDate, setStartDate] = useState(firstDayStr);
+  const [endDate, setEndDate] = useState(lastDayStr);
+  const [chainFilter, setChainFilter] = useState('all');
+  const [eventTypeFilter, setEventTypeFilter] = useState('all');
+
+  // コンポーネントマウント時に初期値を設定
+  useEffect(() => {
+    if (!startDate) setStartDate(firstDayStr);
+    if (!endDate) setEndDate(lastDayStr);
+  }, []);
 
   // Bridge stats data
   const { data, isLoading, error } = useBridgeStats({
