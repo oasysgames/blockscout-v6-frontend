@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaAngleDown } from 'react-icons/fa';
 import { useSwitchChain } from 'wagmi';
-import { useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 
 import { ChainId, TokenIndex } from './constants/types';
 
@@ -109,148 +109,192 @@ const BridgePage = () => {
 
   const [ isSelectTokenOpen, setIsSelectTokenOpen ] = useState(false);
 
-  const bgColor = useColorModeValue('gray.100', 'gray.700');
+  const bgColor = useColorModeValue('gray.100', 'gray.900');
   const cardBg = useColorModeValue('white', 'gray.800');
+  const formBg = useColorModeValue('white', 'gray.700');
   const textColor = useColorModeValue('gray.600', 'gray.200');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
 
   return (
-    <div className="relative flex flex-col justify-center items-center">
-      <div className={`p-6 rounded-lg shadow-md w-full max-w-md mt-12 mb-6`} style={{ backgroundColor: bgColor }}>
-        <h1 className="text-xl font-semibold mb-4" style={{ color: textColor }}>Bridge Route</h1>
+    <Flex direction="column" justify="center" align="center">
+      <Box
+        p={6}
+        rounded="lg"
+        shadow="md"
+        w="full"
+        maxW="md"
+        mt={12}
+        mb={6}
+        bg={formBg}
+      >
+        <Text fontSize="xl" fontWeight="semibold" mb={4} color={textColor}>Bridge Route</Text>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: isDeposit ? 'column' : 'column-reverse',
-          }}
+        <Flex
+          direction={isDeposit ? 'column' : 'column-reverse'}
         >
-          <div className="mb-4">
-            <label className="flex flex-wrap items-center justify-between mb-2" style={{ color: textColor }}>
-              <span className="text-sm">
-                <span className="font-medium">{ isDeposit ? 'From' : 'To' } </span>
-                <span className="font-normal">Hub Layer</span>
-              </span>
-              <span>
-                { l1Balance } { tokenInfo.symbol }
-              </span>
-            </label>
-            <div className="flex items-center border rounded-lg p-3" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
+          <Box mb={4}>
+            <Flex align="center" justify="space-between" mb={2}>
+              <Text fontSize="sm" color={textColor}>
+                <Text as="span" fontWeight="medium">{isDeposit ? 'From' : 'To'} </Text>
+                <Text as="span" fontWeight="normal">Hub Layer</Text>
+              </Text>
+              <Text color={textColor}>
+                {l1Balance} {tokenInfo.symbol}
+              </Text>
+            </Flex>
+            <Flex align="center" p={3} borderWidth="1px" borderColor={borderColor} rounded="lg" bg={cardBg}>
               <Image
                 src="/images/oasys_icon.png"
                 alt="Oasys Mainnet"
-                width={ 24 }
-                height={ 24 }
+                width={24}
+                height={24}
                 className="mr-2"
               />
-              <span className="ml-2 font-medium w-full" style={{ color: textColor }}>
+              <Text ml={2} fontWeight="medium" w="full" color={textColor}>
                 Oasys Mainnet
-              </span>
-            </div>
-          </div>
-          <div className="mb-4 text-center">
-            <button onClick={ handleSwap } className="focus:outline-none">
+              </Text>
+            </Flex>
+          </Box>
+          <Box mb={4} textAlign="center">
+            <button onClick={handleSwap} className="focus:outline-none">
               <Image
                 src="/images/move.svg"
                 alt="move"
-                width={ 24 }
-                height={ 24 }
+                width={24}
+                height={24}
                 className="rotate-90"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
             </button>
-          </div>
-          { /* Verse */ }
-          <div className="mb-4">
-            <label className="flex flex-wrap items-center justify-between mb-2" style={{ color: textColor }}>
-              <span className="text-sm">
-                <span className="font-medium">{ isDeposit ? 'To' : 'From' } </span>
-                <span className="font-normal">Verse</span>
-              </span>
-              <span>
-                { l2Balance } { tokenInfo.symbol }
-              </span>
-            </label>
-            <div className="flex items-center border rounded-lg p-3" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
+          </Box>
+          <Box mb={4}>
+            <Flex align="center" justify="space-between" mb={2}>
+              <Text fontSize="sm" color={textColor}>
+                <Text as="span" fontWeight="medium">{isDeposit ? 'To' : 'From'} </Text>
+                <Text as="span" fontWeight="normal">Verse</Text>
+              </Text>
+              <Text color={textColor}>
+                {l2Balance} {tokenInfo.symbol}
+              </Text>
+            </Flex>
+            <Flex align="center" p={3} borderWidth="1px" borderColor={borderColor} rounded="lg" bg={cardBg}>
               <Image
-                src={ l2ChainImageUrl }
+                src={l2ChainImageUrl}
                 alt="Verse image"
-                width={ 24 }
-                height={ 24 }
+                width={24}
+                height={24}
                 className="mr-2"
               />
-              <label className="ml-2 font-medium w-full border-none focus:outline-none" style={{ color: textColor }}>
-                { CHAINS[l2ChainId].name }
-              </label>
-            </div>
-          </div>
-        </div>
-        <div className="mb-4">
-          { /* Asset */ }
-          <label className="block mb-2 mt-4 font-medium" style={{ color: textColor }}>Asset</label>
-          <div className="flex items-center border rounded-lg p-3" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
-            <span className="font-medium" style={{ color: textColor }}>Send Token (ERC-20)</span>
-          </div>
-          <br/>
-          { /* Token select */ }
-          <div className="flex flex-col items-center border rounded-lg p-2" style={{ backgroundColor: cardBg, borderColor: borderColor }}>
-            <div
-              className="flex w-full items-center p-2 cursor-pointer"
-              onClick={ () => setIsSelectTokenOpen(true) }
+              <Text ml={2} fontWeight="medium" w="full" color={textColor}>
+                {CHAINS[l2ChainId].name}
+              </Text>
+            </Flex>
+          </Box>
+        </Flex>
+        <Box mb={4}>
+          <Text fontSize="md" fontWeight="medium" mb={2} color={textColor}>Asset</Text>
+          <Flex align="center" p={3} borderWidth="1px" borderColor={borderColor} rounded="lg" bg={cardBg}>
+            <Text fontSize="md" fontWeight="medium" color={textColor}>Send Token (ERC-20)</Text>
+          </Flex>
+          <Box mt={4}>
+            <Flex align="center" justify="space-between" mb={2}>
+              <Text fontSize="sm" color={textColor}>
+                <Text as="span" fontWeight="medium">Token</Text>
+              </Text>
+              <Text color={textColor}>
+                {tokenInfo.symbol}
+              </Text>
+            </Flex>
+            <Box
+              as="button"
+              onClick={() => setIsSelectTokenOpen(true)}
+              w="full"
+              cursor="pointer"
             >
-              <Image
-                src={ tokenInfo.icon || '' }
-                alt={ tokenInfo.symbol }
-                width={ 24 }
-                height={ 24 }
-                className="mr-2"
-              />
-              <label className="ml-2 w-full font-medium border-none focus:outline-none cursor-pointer" style={{ color: textColor }}>
-                { tokenInfo.symbol }
-              </label>
-              <FaAngleDown style={{ color: textColor }}/>
-              <br/>
-            </div>
-            <hr className="w-full" style={{ borderColor: borderColor }}/>
-            <div className="w-full relative flex items-center">
-              <input
-                value={ value }
-                type="text"
-                placeholder="0.0"
-                className="w-full p-2 font-medium focus:outline-none"
-                style={{ backgroundColor: cardBg, color: textColor }}
-                onChange={ (e) => setValue(e.target.value) }
-              />
-              <button
-                type="button"
-                className="absolute right-0 border focus:outline-none hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-1"
-                style={{ backgroundColor: bgColor, color: textColor, borderColor: borderColor }}
-                onClick={ setMax }
+              <Flex 
+                align="center" 
+                p={3} 
+                borderWidth="1px" 
+                borderColor={borderColor} 
+                rounded="lg" 
+                bg={cardBg}
+                _hover={{ bg: useColorModeValue('gray.50', 'gray.700') }}
               >
-                max
-              </button>
-            </div>
-          </div>
-          { isSelectTokenOpen && (
+                <Image
+                  src={tokenInfo.icon || ''}
+                  alt={tokenInfo.symbol}
+                  width={24}
+                  height={24}
+                  className="mr-2"
+                />
+                <Text ml={2} fontWeight="medium" flex="1" textAlign="left" color={textColor}>
+                  {tokenInfo.symbol}
+                </Text>
+                <FaAngleDown style={{ color: textColor }}/>
+              </Flex>
+            </Box>
+            <Box mt={2} position="relative">
+              <Flex align="center" justify="space-between" mb={2}>
+                <Text fontSize="sm" color={textColor}>
+                  <Text as="span" fontWeight="medium">Amount</Text>
+                </Text>
+              </Flex>
+              <Flex 
+                align="center" 
+                p={3} 
+                borderWidth="1px" 
+                borderColor={borderColor} 
+                rounded="lg" 
+                bg={useColorModeValue('white', 'gray.800')}
+                position="relative"
+              >
+                <input
+                  value={value}
+                  type="text"
+                  placeholder="0.0"
+                  className="w-full pr-16 font-medium focus:outline-none"
+                  style={{ backgroundColor: 'transparent', color: textColor }}
+                  onChange={(e) => setValue(e.target.value)}
+                />
+                <Box
+                  as="button"
+                  position="absolute"
+                  right={3}
+                  px={3}
+                  py={1}
+                  bg={useColorModeValue('gray.100', 'gray.700')}
+                  color={textColor}
+                  borderWidth="1px"
+                  borderColor={borderColor}
+                  rounded="lg"
+                  _hover={{ bg: useColorModeValue('gray.200', 'gray.600') }}
+                  onClick={setMax}
+                >
+                  max
+                </Box>
+              </Flex>
+            </Box>
+          </Box>
+          {isSelectTokenOpen && (
             <SelectModal
               headerText="Select Token"
-              items={ tokenInfoItems }
-              onClose={ () => setIsSelectTokenOpen(false) }
-              onSelect={ (id) => setTokenIndex(id) }
+              items={tokenInfoItems}
+              onClose={() => setIsSelectTokenOpen(false)}
+              onSelect={(id) => setTokenIndex(id)}
             />
-          ) }
-        </div>
+          )}
+        </Box>
         <button
           className="w-full bg-sky-700 text-white font-medium rounded-lg py-2 disabled:opacity-50"
-          onClick={ doBridge }
-          disabled={ loading || !valid }
+          onClick={doBridge}
+          disabled={loading || !valid}
         >
-          { loading ? <LoadingIcon/> : '' } Bridge
+          {loading ? <LoadingIcon/> : ''} Bridge
         </button>
-      </div>
+      </Box>
 
-      <LoadingModal loading={ loading } error={ error } hash={ hash }/>
-    </div>
+      <LoadingModal loading={loading} error={error} hash={hash}/>
+    </Flex>
   );
 };
 
