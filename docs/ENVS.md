@@ -165,6 +165,7 @@ _Note_ Here, all values are arrays of up to two strings. The first string repres
 | NEXT_PUBLIC_NAVIGATION_LAYOUT | `vertical \| horizontal` | Navigation menu layout type | - | `vertical` | `horizontal` | v1.32.0+ |
 | NEXT_PUBLIC_MENU_BRIDGE_VISIBLE | `boolean` | Set to true to show bridged Token | - | - | `false` | v1.32.x+ |
 | NEXT_PUBLIC_L2_CHAIN_ID | `number` | Chain id, see [https://chainlist.org](https://chainlist.org) for the reference | - | -  | `99` | v1.33.x+ |
+| NEXT_PUBLIC_VERSE_VERSION | `0 or 1` | Verse version | - | 0 | `1` | v1.33.x+ |
 
 #### Featured network configuration properties
 
@@ -214,7 +215,7 @@ Settings for meta tags, OG tags and SEO
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_PROMOTE_BLOCKSCOUT_IN_TITLE | `boolean` | Set to `true` to promote Blockscout in meta and OG titles | - | `true` | `true` | v1.12.0+ |
 | NEXT_PUBLIC_OG_DESCRIPTION | `string` | Custom OG description | - | - | `Blockscout is the #1 open-source blockchain explorer available today. 100+ chains and counting rely on Blockscout data availability, APIs, and ecosystem tools to support their networks.` | v1.12.0+ |
-| NEXT_PUBLIC_OG_IMAGE_URL | `string` | OG image url. Minimum image size is 200 x 20 pixels (recommended: 1200 x 600); maximum supported file size is 8 MB; 2:1 aspect ratio; supported formats: image/jpeg, image/gif, image/png | - | `static/og_placeholder.png` | `https://placekitten.com/1200/600` | v1.12.0+ |
+| NEXT_PUBLIC_OG_IMAGE_URL | `string` | OG image url. Minimum image size is 200 x 20 pixels (recommended: 1200 x 600); maximum supported file size is 8 MB; 2:1 aspect ratio; supported formats: image/jpeg, image/gif, image/png | - | `static/og_placeholder.png` | `https://placekitten.com/1200/600` | v1.12.0+ |
 | NEXT_PUBLIC_OG_ENHANCED_DATA_ENABLED | `boolean` | Set to `true` to populate OG tags (title, description) with API data for social preview robot requests | - | `false` | `true` | v1.29.0+ |
 | NEXT_PUBLIC_SEO_ENHANCED_DATA_ENABLED | `boolean` | Set to `true` to pre-render page titles (e.g Token page) on the server side and inject page h1-tag to the markup before it is sent to the browser. | - | `false` | `true` | v1.30.0+ |
 
@@ -563,6 +564,7 @@ This feature is **always enabled**, but you can disable it by passing `none` val
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_STATS_API_HOST | `string` | Stats API endpoint url | Required | - | `https://stats.services.blockscout.com` | v1.0.x+ |
 | NEXT_PUBLIC_STATS_API_BASE_PATH | `string` | Base path for Stats API endpoint url | - | - | `/poa/core` | v1.29.0+ |
+| NEXT_PUBLIC_EXPERIMENT_API_URL | `string` | TheGraph API endpoint url | - | `http://localhost:8000/subgraphs/name/oasys/bridge` | `https://api.thegraph.com/subgraphs/name/oasys/bridge` | v1.0.x+ |
 
 &nbsp;
 
@@ -849,3 +851,35 @@ For obtaining the variables values please refer to [reCAPTCHA documentation](htt
 | --- | --- | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_RE_CAPTCHA_V3_APP_SITE_KEY | `string` | Google reCAPTCHA v3 site key | - | - | `<your-secret>` | v1.36.0+ |
 | NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY | `string` | **DEPRECATED** Google reCAPTCHA v2 site key | - | - | `<your-secret>` | v1.0.x+ |
+
+### Custom Banner Images
+
+This feature allows you to display up to three custom banner images in the left navigation bar. Each banner can have its own link URL.
+
+**Note**: When using this feature, you need to add the image domains to the Next.js configuration in `next.config.js`:
+```javascript
+module.exports = {
+  images: {
+    domains: ['your-image-domain.com'],
+  },
+}
+```
+
+| Variable | Type| Description | Compulsoriness  | Default value | Example value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_BANNER_IMAGE_URL_1 | `string` | URL for the first banner image. Recommended size: 160x80 pixels. Supported formats: image/jpeg, image/png. The image domain must be configured in next.config.js | Optional | - | `https://example.com/banner1.png` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL_1 | `string` | URL that the first banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_IMAGE_URL_2 | `string` | URL for the second banner image. Same specifications as the first banner. | Optional | - | `https://example.com/banner2.png` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL_2 | `string` | URL that the second banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_IMAGE_URL_3 | `string` | URL for the third banner image. Same specifications as the first banner. | Optional | - | `https://example.com/banner3.png` | v1.36.x+ |
+| NEXT_PUBLIC_BANNER_LINK_URL_3 | `string` | URL that the third banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+
+### Header Alert
+
+This feature allows you to display a custom alert banner in the header of the application. The banner can have up to two customizable links (e.g., Explorer URL and Discord URL). The banner will appear prominently in the header when the feature is enabled.
+
+| Variable | Type | Description | Compulsoriness  | Default Value | Example Value | Version |
+| --- | --- | --- | --- | --- | --- | --- |
+| `NEXT_PUBLIC_HEADER_ALERT_ENABLED` | `boolean` | Set to `true` to enable the header alert banner | Required | `false` | `true` | v1.36.0+ |
+| `NEXT_PUBLIC_HEADER_ALERT_EXPLORER_URL` | `string` | URL that the "Explorer" link in the banner will redirect to when clicked | Optional | `#` | `https://example.com` | v1.36.x+ |
+| `NEXT_PUBLIC_HEADER_ALERT_DISCORD_URL` | `string` | URL that the "Discord" link in the banner will redirect to when clicked | Optional | `#` | `https://discord.com` | v1.36.x+ |

@@ -670,6 +670,7 @@ const schema = yup
     // bridge
     NEXT_PUBLIC_MENU_BRIDGE_VISIBLE: yup.boolean(),
     NEXT_PUBLIC_L2_CHAIN_ID: yup.number().positive().integer(),
+    NEXT_PUBLIC_VERSE_VERSION: yup.number().positive().integer(),
 
     //     c. footer
     NEXT_PUBLIC_FOOTER_LINKS: yup
@@ -775,6 +776,7 @@ const schema = yup
       }),
     NEXT_PUBLIC_STATS_API_HOST: yup.string().test(urlTest),
     NEXT_PUBLIC_STATS_API_BASE_PATH: yup.string(),
+    NEXT_PUBLIC_EXPERIMENT_API_URL: yup.string().test(urlTest),
     NEXT_PUBLIC_VISUALIZE_API_HOST: yup.string().test(urlTest),
     NEXT_PUBLIC_VISUALIZE_API_BASE_PATH: yup.string(),
     NEXT_PUBLIC_CONTRACT_INFO_API_HOST: yup.string().test(urlTest),
@@ -889,6 +891,18 @@ const schema = yup
 
     // Misc
     NEXT_PUBLIC_USE_NEXT_JS_PROXY: yup.boolean(),
+    // banners
+    NEXT_PUBLIC_BANNER_IMAGE_URL_1: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_1: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_IMAGE_URL_2: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_2: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_IMAGE_URL_3: yup.string().test(urlTest),
+    NEXT_PUBLIC_BANNER_LINK_URL_3: yup.string().test(urlTest),
+
+    // header banner
+    NEXT_PUBLIC_HEADER_ALERT_ENABLED: yup.boolean(),
+    NEXT_PUBLIC_HEADER_ALERT_EXPLORER_URL: yup.string().test(urlTest),
+    NEXT_PUBLIC_HEADER_ALERT_DISCORD_URL: yup.string().test(urlTest),
   })
   .concat(accountSchema)
   .concat(adsBannerSchema)

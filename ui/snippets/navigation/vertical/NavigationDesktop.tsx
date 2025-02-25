@@ -11,6 +11,7 @@ import useIsAuth from 'ui/snippets/auth/useIsAuth';
 import NetworkLogo from 'ui/snippets/networkMenu/NetworkLogo';
 import NetworkMenu from 'ui/snippets/networkMenu/NetworkMenu';
 
+import Banner from '../../../../oasys-experiment/Banner';
 import TestnetBadge from '../TestnetBadge';
 import NavLink from './NavLink';
 import NavLinkGroup from './NavLinkGroup';
@@ -64,7 +65,8 @@ const NavigationDesktop = () => {
       borderRight="1px solid"
       borderColor="divider"
       px={{ lg: isExpanded ? 6 : 4, xl: isCollapsed ? 4 : 6 }}
-      py={ 12 }
+      pt={ 12 }
+      pb={ 3 }
       width={{ lg: isExpanded ? '229px' : '92px', xl: isCollapsed ? '92px' : '229px' }}
       { ...getDefaultTransitionProps({ transitionProperty: 'width, padding' }) }
       onClick={ handleContainerClick }
@@ -106,6 +108,10 @@ const NavigationDesktop = () => {
           </VStack>
         </Box>
       ) }
+      <Box height="calc(100vh - 700px)" minHeight="0"/>
+      <Box>
+        <Banner/>
+      </Box>
       <IconSvg
         name="arrows/east-mini"
         width={ 6 }

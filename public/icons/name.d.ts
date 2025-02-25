@@ -58,6 +58,7 @@
 	| "error-pages/422"
 	| "error-pages/429"
 	| "error-pages/500"
+	| "experiment"
 	| "explorer"
 	| "files/csv"
 	| "files/image"

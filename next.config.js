@@ -46,10 +46,14 @@ const moduleExports = {
   output: 'standalone',
   productionBrowserSourceMaps: true,
   experimental: {
+    appDir: true,
     staleTimes: {
       dynamic: 30,
       'static': 180,
     },
+  },
+  images: {
+    domains: ['oasys-blockscout.s3.ap-northeast-1.amazonaws.com'],
   },
 };
 
