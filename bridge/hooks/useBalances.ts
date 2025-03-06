@@ -15,7 +15,7 @@ export function useBalances(chainId: ChainId, tokenIndex: TokenIndex) {
   const queryOption = { enabled: isNativeToken };
   const { data: BalanceData } = useBalance({ address, chainId, query: queryOption });
 
-  const Balance = useMemo(() => formatEther(BalanceData?.value || BigInt(0)), [ BalanceData ]);
+  const Balance = useMemo(() => Number(formatEther(BalanceData?.value || BigInt(0))).toFixed(3), [ BalanceData ]);
 
   // erc20 token
   const TokenAddress = getTokenAddress(chainId, tokenIndex);
@@ -28,7 +28,7 @@ export function useBalances(chainId: ChainId, tokenIndex: TokenIndex) {
     functionName: 'balanceOf',
     args: [ address || '0x' ],
   });
-  const TokenBalance = useMemo(() => formatEther(TokenBalanceRaw || BigInt(0)), [ TokenBalanceRaw ]);
+  const TokenBalance = useMemo(() => Number(formatEther(TokenBalanceRaw || BigInt(0))).toFixed(3), [ TokenBalanceRaw ]);
 
   return isNativeToken ? Balance : TokenBalance;
 }
