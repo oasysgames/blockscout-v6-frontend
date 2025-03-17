@@ -49,7 +49,7 @@ const AddressAddToWallet = ({ className, token, isLoading, variant = 'icon', ico
           options: {
             address: token.address,
             symbol: symbol || '',
-            decimals: Number(token.decimals) || 18,
+            decimals: Number(token.decimals ?? '18'),
             image: token.icon_url || '',
           },
         },
